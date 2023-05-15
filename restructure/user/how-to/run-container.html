@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Run in a container &#8212; PandABlocks.github.io 0.1.dev64+gc920db7 documentation</title>
+    <title>Run in a container &#8212; PandABlocks.github.io 0.1.dev64+gbff65af documentation</title>
   
   
   
@@ -464,16 +464,15 @@ A build directory is required: <code class="docutils literal notranslate"><span 
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>REPO_DIR:/repos:Z<span class="w"> </span>-v<span class="w"> </span>/scratch/tmp/build:/build:Z<span class="w"> </span>-v<span class="w"> </span>VIVADO_DIR:/scratch/Xilinx<span class="w"> </span>ghcr.io/pandablocks/pandablocks-dev-container<span class="w"> </span>/bin/bash
 </pre></div>
 </div>
-<p>In each repo you will need to:
-.. code-block:: bash</p>
-<blockquote>
-<div><p>cp CONFIG.example CONFIG</p>
-</div></blockquote>
-<p>..note:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>For the Vivado installation the container path will need to match your local system.
-i.e. if it is located in /FPGA/Xilinx you will use ``VIVADO_DIR:/FPGA/Xilinx``
-and you will then need to edit CONFIG as appropriate.
+<p>In each repo you will need to:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>CONFIG.example<span class="w"> </span>CONFIG
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the Vivado installation the container path will need to match your local system.
+i.e. if it is located in /FPGA/Xilinx you will use VIVADO_DIR:/FPGA/Xilinx
+and you will then need to edit CONFIG as appropriate.</p>
 </div>
 </section>
 </section>

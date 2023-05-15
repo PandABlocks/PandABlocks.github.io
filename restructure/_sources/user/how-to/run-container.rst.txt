@@ -25,13 +25,14 @@ The above directories will be mounted as volumes to the container as it is run w
     docker run --rm -it -v REPO_DIR:/repos:Z -v /scratch/tmp/build:/build:Z -v VIVADO_DIR:/scratch/Xilinx ghcr.io/pandablocks/pandablocks-dev-container /bin/bash
 
 In each repo you will need to:
+
 .. code-block:: bash
 
     cp CONFIG.example CONFIG
 
-..note::
+.. note::
 
     For the Vivado installation the container path will need to match your local system. 
-    i.e. if it is located in /FPGA/Xilinx you will use ``VIVADO_DIR:/FPGA/Xilinx`` 
+    i.e. if it is located in /FPGA/Xilinx you will use VIVADO_DIR:/FPGA/Xilinx 
     and you will then need to edit CONFIG as appropriate.
 
