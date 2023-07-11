@@ -50,6 +50,7 @@ side-bar.
             :caption: Reference
             :maxdepth: 1
 
+            reference/latency_and_jitter
             reference/standards
 
         +++
