@@ -1,0 +1,682 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-theme="dark">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Latency and Jitter &#8212; PandABlocks.github.io 0.1.dev67+g092e4aa documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'developer/reference/latency_and_jitter';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://PandABlocks.github.io/PandABlocks.github.io/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'jitter_docs';
+        </script>
+    <link rel="icon" href="../../_static/PandA-logo.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Standards" href="standards.html" />
+    <link rel="prev" title="2. Adopt python3-pip-skeleton for project structure" href="../explanations/decisions/0002-switched-to-pip-skeleton.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/PandA-logo-for-black-background.svg" class="logo__image only-dark" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/PandA-logo-for-black-background.svg" class="logo__image only-light" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">PandABlocks.github.io</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../user/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Developer Guide
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://github.com/PandABlocks/PandABlocks.github.io/releases">
+                    Release Notes
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/PandABlocks/PandABlocks.github.io" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/PandABlocks.github.io" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-cube"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      jitter_docs  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../user/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Developer Guide
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://github.com/PandABlocks/PandABlocks.github.io/releases">
+                    Release Notes
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/PandABlocks/PandABlocks.github.io" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/PandABlocks.github.io" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-cube"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      jitter_docs  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../how-to/contribute.html">Contributing to the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/update-tools.html">Update the tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/make-release.html">Make a release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/run-container.html">Run in a container</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Explanations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../explanations/decisions.html">Architectural Decision Records</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explanations/decisions/0001-record-architecture-decisions.html">1. Record architecture decisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanations/decisions/0002-switched-to-pip-skeleton.html">2. Adopt python3-pip-skeleton for project structure</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Latency and Jitter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standards.html">Standards</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Developer Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Latency and Jitter</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="latency-and-jitter">
+<h1>Latency and Jitter<a class="headerlink" href="#latency-and-jitter" title="Permalink to this heading">#</a></h1>
+<section id="measuring-latency-jitter">
+<h2>Measuring Latency &amp; Jitter<a class="headerlink" href="#measuring-latency-jitter" title="Permalink to this heading">#</a></h2>
+<p>General Test Conditions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>0.144 μs clock period (~7MHz). This was the highest frequency that behaved consistently (see known issues section).</p></li>
+<li><dl class="simple">
+<dt>Package versions on all PandAs:</dt><dd><ul>
+<li><p>panda-fpga PandABox-no-fmc-sfp1_sync-3.0a2-162-gc398fbf</p></li>
+<li><p>panda-server zynq-3.0a3-31-g5f6f165</p></li>
+<li><p>panda-slowfpga b681574</p></li>
+<li><p>panda-webcontrol 2.1-8-g7aa28e8</p></li>
+<li><p>panda-webcontrol-no-subnet-validation 2.1-8-g7aa28e8</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Rohde &amp; Schwarz RTO2044 oscilloscope set-up and measurement taking:</dt><dd><ul>
+<li><p>Connect the two TTL outputs, that you wish to compare, to two different channel inputs on the front of the oscilloscope.</p></li>
+<li><p>Press the “Autoset” button on the oscilloscope to get most settings into the right ballpark.</p></li>
+<li><p>You should then see two square waves onscreen.</p></li>
+<li><p>For our tests, both channels were manually vertically scaled to 1V/div, and given an offset of 2.5V; but feel free to set them to something more comfortable for you, as long as you use the same for both channels.</p></li>
+<li><p>Select “Analysis” from the bottom toolbar.</p></li>
+<li><p>Select “Jitter Wizard” from the list that pops up.</p></li>
+<li><p>On the first screen, select “Skew” as the measurement type (for more info see <a class="reference external" href="https://www.rohde-schwarz.com/webhelp/RTO_HTML_UserManual_en/Content/2ff5499f0f6f4cd5.htm">https://www.rohde-schwarz.com/webhelp/RTO_HTML_UserManual_en/Content/2ff5499f0f6f4cd5.htm</a>).</p></li>
+<li><p>On the second screen, make sure that the two channels that your square waves are on are selected. The original (clock block direct output) waveform should be selected as “Channel source 1”, and the other waveform that you want to compare to it should be selected as “Channel source 2”. “Edge polarity” shouldn’t matter, but “Positive” was used for these tests. Finally, since you shouldn’t be able to change it, “Relative Polarity” should already be set to “Matching”.</p></li>
+<li><p>On the third screen, select “Retain current settings” in all three boxes.</p></li>
+<li><p>On the fourth screen, the slider buttons for “Source signal” and “Histogram of measurement” should be on (righthand side) and the other two (“Track of measurement” &amp; “FFT spectrum of track”) should be off (lefthand side).</p></li>
+<li><p>Click “Execute”!</p></li>
+<li><p>Check the trigger options to check that it’s still triggering off the leading edge of your original (source of truth) waveform, it may well have switched to triggering off the other channel.</p></li>
+<li><p>Reduce the horizontal scale down to the smallest resolution where there is still at least one wavelength visible on the screen.</p></li>
+<li><p>Wait until the “Event count” exceeds 50,000, to ensure we have captured enough data for our sample to be representative.</p></li>
+<li><p>Take a screenshot through the web interface</p></li>
+<li><p>It should look something like this.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/Example1.jpg"><img alt="../../_images/Example1.jpg" src="../../_images/Example1.jpg" style="width: 600px;" /></a>
+</section>
+<section id="baseline-measurements">
+<h2>Baseline Measurements<a class="headerlink" href="#baseline-measurements" title="Permalink to this heading">#</a></h2>
+<p>Specific Test Conditions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Connected like so: PandA-02, and for the roundtrip measurement: PandA-05.</p></li>
+<li><p>Giving a network arrangement of this, and for the roundtrip measurement this.</p></li>
+</ul>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/Baseline2.png"><img alt="../../_images/Baseline2.png" src="../../_images/Baseline2.png" style="width: 600px;" /></a>
+<p>Results:</p>
+<p>Link Method                Internal Clock Latency Internal Clock Jitter External Clock Latency External Clock Jitter Recovered Clock Latency Recovered Clock Jitter
+————————– ———————- ——————— ———————- ——————— ———————– ———————-
+*                                                 Range      σ                                 Range      σ                                  Range      σ
+========================== ====================== ========== ========== ====================== ========== ========== ======================= ========== ===========
+Hard Metal Loopback        273 ns                 ±79.80 ps  18.190 ps  273 ns                 ±76.75 ps  18.078 ps  N/A                     N/A        N/A
+Short Fiber Optic Loopback 273 ns                 ±73.55 ps  18.091 ps  273 ns                 ±69.75 ps  17.914 ps  N/A                     N/A        N/A
+Long Fiber Optic Loopback  278 ns                 ±72.70 ps  18.146 ps  278 ns                 ±71.05 ps  18.079 ps  N/A                     N/A        N/A
+PandA to PandA Roundtrip   N/A                    N/A        N/A        555 ns                 ±69.50 ps  16.660 ps  555 ns                  ±68.70 ps  16.425 ps
+========================== ====================== ========== ========== ====================== ========== ========== ======================= ========== ===========</p>
+</section>
+<section id="ring-configuration">
+<h2>Ring Configuration<a class="headerlink" href="#ring-configuration" title="Permalink to this heading">#</a></h2>
+<p>Specific Test Conditions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Connected like so: PandA-02, PandA-05, and PandA-03.</p></li>
+<li><p>Giving a network arrangement of this.</p></li>
+</ul>
+</div></blockquote>
+<p>Results:</p>
+<p>Clock Type                    Delay After 1 Link Jitter After 1 Link  Delay After 2 Links Jitter After 2 Links   Delay After 3 Links Jitter After 3 Links
+—————————- ——————- ——————– ——————- ——————— ——————– ——————–
+PandA-02  PandA-05  PandA-03                     Range      σ                             Range       σ                              Range      σ
+========= ========= ========= ================== ========== ========= =================== =========== ========= ==================== ========== =========
+Internal  Recovered Recovered 276 ns             ±657.95 ps     114.00 ps 545 ns              ±1209.55 ps 168.78 ps 847 ns               ±98.35 ps  24.869 ps
+External  External      External  269 ns             ±124.75 ps 29.646 ps 533.5 ns            ±134.50 ps  30.025 ps 822.5 ns             ±112.50 ps 25.224 ps
+External  Recovered     Recovered 276 ns             ±128.60 ps 31.322 ps 545 ns              ±134.10 ps  32.376 ps 839 ns               ±100.60 ps 25.137 ps
+Recovered Recovered     Recovered 276.5 ns           ±136.05 ps 32.778 ps 565 ns              ±136.35 ps  33.231 ps 847 ns               ±103.85 ps 24.901 ps
+========= ========= ========= ================== ========== ========= =================== =========== ========= ==================== ========== =========</p>
+</section>
+<section id="star-configuration">
+<h2>Star Configuration<a class="headerlink" href="#star-configuration" title="Permalink to this heading">#</a></h2>
+<p>Specific Test Conditions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Connected like so: PandA-02, PandA-05, and PandA-03.</p></li>
+<li><p>Giving a network arrangement of this.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="infinitely-recycled-clock-drift">
+<h2>Infinitely Recycled Clock Drift<a class="headerlink" href="#infinitely-recycled-clock-drift" title="Permalink to this heading">#</a></h2>
+<p>Specific Test Conditions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>40ns clock period (25MHz).</p></li>
+<li><p>Used the previous PandABlocks-FPGA package version: panda-fpga PandABox-no-fmc-sfp1_sync-3.0a2-161-g57dda12</p></li>
+<li><p>Connected like so: PandA-02, PandA-05, and PandA-03.</p></li>
+<li><p>Giving a network arrangement of this.</p></li>
+</ul>
+</div></blockquote>
+<p>Results:</p>
+<p>After being left for 112.5 hours, the mean clock period was still measured to be within 0.01ns of the mean clock period initially measured at the start. So it is clear that there was no significant drift in the clock period/frequency over the duration of the test.</p>
+<p>The jitter in the clock period was measured to be:</p>
+<p>Time  Jitter
+—– ——————
+*     Range    σ
+===== ======== =========
+Start ±71.0 ps 17.303 ps
+End   ±77.5 ps 17.569 ps
+===== ======== =========</p>
+<p>N.B. The oscilloscope was only switched on at the start and end of the test and was not left on during the unsupervised time, so it is possible that a significant deviation in clock period both occurred and was self-corrected during the unsupervised time.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../explanations/decisions/0002-switched-to-pip-skeleton.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2. Adopt python3-pip-skeleton for project structure</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="standards.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Standards</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-latency-jitter">Measuring Latency &amp; Jitter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-measurements">Baseline Measurements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ring-configuration">Ring Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#star-configuration">Star Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infinitely-recycled-clock-drift">Infinitely Recycled Clock Drift</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/PandABlocks/PandABlocks.github.io/edit/jitter_docs/docs/developer/reference/latency_and_jitter.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/developer/reference/latency_and_jitter.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
