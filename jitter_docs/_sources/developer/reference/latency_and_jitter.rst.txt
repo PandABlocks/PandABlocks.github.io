@@ -47,6 +47,7 @@ Specific Test Conditions:
 
 Results:
 
+========================== ====================== ========== ========== ====================== ========== ========== ======================= ========== ===========
 Link Method                Internal Clock Latency Internal Clock Jitter External Clock Latency External Clock Jitter Recovered Clock Latency Recovered Clock Jitter
 -------------------------- ---------------------- --------------------- ---------------------- --------------------- ----------------------- ----------------------
 *                                                 Range      σ                                 Range      σ                                  Range      σ
