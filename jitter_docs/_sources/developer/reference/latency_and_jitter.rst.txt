@@ -50,7 +50,7 @@ Results:
 ========================== ====================== ========== ========== ====================== ========== ========== ======================= ========== ===========
 Link Method                Internal Clock Latency Internal Clock Jitter External Clock Latency External Clock Jitter Recovered Clock Latency Recovered Clock Jitter
 -------------------------- ---------------------- --------------------- ---------------------- --------------------- ----------------------- ----------------------
-                                                  Range      σ                                 Range      σ                                  Range      σ
+|                                                 Range      σ                                 Range      σ                                  Range      σ
 ========================== ====================== ========== ========== ====================== ========== ========== ======================= ========== ===========
 Hard Metal Loopback        273 ns                 ±79.80 ps  18.190 ps  273 ns                 ±76.75 ps  18.078 ps  N/A                     N/A        N/A
 Short Fiber Optic Loopback 273 ns                 ±73.55 ps  18.091 ps  273 ns                 ±69.75 ps  17.914 ps  N/A                     N/A        N/A
@@ -68,14 +68,15 @@ Specific Test Conditions:
 
 Results:
 
+========= ========= ========= ================== ========== ========= =================== =========== ========= ==================== ========== =========
 Clock Type                    Delay After 1 Link Jitter After 1 Link  Delay After 2 Links Jitter After 2 Links   Delay After 3 Links Jitter After 3 Links
----------------------------- ------------------- -------------------- ------------------- --------------------- -------------------- --------------------
+----------------------------- ------------------ -------------------- ------------------- --------------------- -------------------- --------------------
 PandA-02  PandA-05  PandA-03                     Range      σ                             Range       σ                              Range      σ
 ========= ========= ========= ================== ========== ========= =================== =========== ========= ==================== ========== =========
-Internal  Recovered Recovered 276 ns             ±657.95 ps	114.00 ps 545 ns              ±1209.55 ps 168.78 ps 847 ns               ±98.35 ps  24.869 ps
-External  External	External  269 ns             ±124.75 ps	29.646 ps 533.5 ns            ±134.50 ps  30.025 ps 822.5 ns             ±112.50 ps 25.224 ps
-External  Recovered	Recovered 276 ns             ±128.60 ps	31.322 ps 545 ns              ±134.10 ps  32.376 ps 839 ns               ±100.60 ps 25.137 ps
-Recovered Recovered	Recovered 276.5 ns           ±136.05 ps	32.778 ps 565 ns              ±136.35 ps  33.231 ps 847 ns               ±103.85 ps 24.901 ps
+Internal  Recovered Recovered 276 ns             ±657.95 ps 114.00 ps 545 ns              ±1209.55 ps 168.78 ps 847 ns               ±98.35 ps  24.869 ps
+External  External  External  269 ns             ±124.75 ps 29.646 ps 533.5 ns            ±134.50 ps  30.025 ps 822.5 ns             ±112.50 ps 25.224 ps
+External  Recovered Recovered 276 ns             ±128.60 ps 31.322 ps 545 ns              ±134.10 ps  32.376 ps 839 ns               ±100.60 ps 25.137 ps
+Recovered Recovered Recovered 276.5 ns           ±136.05 ps 32.778 ps 565 ns              ±136.35 ps  33.231 ps 847 ns               ±103.85 ps 24.901 ps
 ========= ========= ========= ================== ========== ========= =================== =========== ========= ==================== ========== =========
 
 Star Configuration
@@ -102,9 +103,10 @@ After being left for 112.5 hours, the mean clock period was still measured to be
 
 The jitter in the clock period was measured to be:
 
+===== ======== =========
 Time  Jitter
 ----- ------------------
-*     Range    σ
+|     Range    σ
 ===== ======== =========
 Start ±71.0 ps 17.303 ps
 End   ±77.5 ps 17.569 ps
