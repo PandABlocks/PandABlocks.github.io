@@ -50,7 +50,7 @@ Results:
 ========================== ====================== ========== ========== ====================== ========== ========== ======================= ========== ===========
 Link Method                Internal Clock Latency Internal Clock Jitter External Clock Latency External Clock Jitter Recovered Clock Latency Recovered Clock Jitter
 -------------------------- ---------------------- --------------------- ---------------------- --------------------- ----------------------- ----------------------
-*                                                 Range      σ                                 Range      σ                                  Range      σ
+                                                  Range      σ                                 Range      σ                                  Range      σ
 ========================== ====================== ========== ========== ====================== ========== ========== ======================= ========== ===========
 Hard Metal Loopback        273 ns                 ±79.80 ps  18.190 ps  273 ns                 ±76.75 ps  18.078 ps  N/A                     N/A        N/A
 Short Fiber Optic Loopback 273 ns                 ±73.55 ps  18.091 ps  273 ns                 ±69.75 ps  17.914 ps  N/A                     N/A        N/A
