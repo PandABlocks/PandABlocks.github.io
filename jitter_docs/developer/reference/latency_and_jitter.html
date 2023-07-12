@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Latency and Jitter &#8212; PandABlocks.github.io 0.1.dev67+g22acba5 documentation</title>
+    <title>Latency and Jitter &#8212; PandABlocks.github.io 0.1.dev67+g9c8cb26 documentation</title>
   
   
   
@@ -453,8 +453,7 @@ document.write(`
 <section id="measuring-latency-jitter">
 <h2>Measuring Latency &amp; Jitter<a class="headerlink" href="#measuring-latency-jitter" title="Permalink to this heading">#</a></h2>
 <p>General Test Conditions:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>0.144 μs clock period (~7MHz). This was the highest frequency that behaved consistently (see known issues section).</p></li>
 <li><dl class="simple">
 <dt>Package versions on all PandAs:</dt><dd><ul>
@@ -490,18 +489,15 @@ document.write(`
 </dl>
 </li>
 </ul>
-</div></blockquote>
 <a class="reference internal image-reference" href="../../_images/Example1.jpg"><img alt="../../_images/Example1.jpg" src="../../_images/Example1.jpg" style="width: 600px;" /></a>
 </section>
 <section id="baseline-measurements">
 <h2>Baseline Measurements<a class="headerlink" href="#baseline-measurements" title="Permalink to this heading">#</a></h2>
 <p>Specific Test Conditions:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Connected like so: PandA-02, and for the roundtrip measurement: PandA-05.</p></li>
 <li><p>Giving a network arrangement of this, and for the roundtrip measurement this.</p></li>
 </ul>
-</div></blockquote>
 <a class="reference internal image-reference" href="../../_images/Baseline2.png"><img alt="../../_images/Baseline2.png" src="../../_images/Baseline2.png" style="width: 600px;" /></a>
 <p>Results:</p>
 <table class="table">
@@ -580,12 +576,10 @@ document.write(`
 <section id="ring-configuration">
 <h2>Ring Configuration<a class="headerlink" href="#ring-configuration" title="Permalink to this heading">#</a></h2>
 <p>Specific Test Conditions:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Connected like so: PandA-02, PandA-05, and PandA-03.</p></li>
 <li><p>Giving a network arrangement of this.</p></li>
 </ul>
-</div></blockquote>
 <p>Results:</p>
 <table class="table">
 <thead>
@@ -670,24 +664,20 @@ document.write(`
 <section id="star-configuration">
 <h2>Star Configuration<a class="headerlink" href="#star-configuration" title="Permalink to this heading">#</a></h2>
 <p>Specific Test Conditions:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Connected like so: PandA-02, PandA-05, and PandA-03.</p></li>
 <li><p>Giving a network arrangement of this.</p></li>
 </ul>
-</div></blockquote>
 </section>
 <section id="infinitely-recycled-clock-drift">
 <h2>Infinitely Recycled Clock Drift<a class="headerlink" href="#infinitely-recycled-clock-drift" title="Permalink to this heading">#</a></h2>
 <p>Specific Test Conditions:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>40ns clock period (25MHz).</p></li>
 <li><p>Used the previous PandABlocks-FPGA package version: panda-fpga PandABox-no-fmc-sfp1_sync-3.0a2-161-g57dda12</p></li>
 <li><p>Connected like so: PandA-02, PandA-05, and PandA-03.</p></li>
 <li><p>Giving a network arrangement of this.</p></li>
 </ul>
-</div></blockquote>
 <p>Results:</p>
 <p>After being left for 112.5 hours, the mean clock period was still measured to be within 0.01ns of the mean clock period initially measured at the start. So it is clear that there was no significant drift in the clock period/frequency over the duration of the test.</p>
 <p>The jitter in the clock period was measured to be:</p>
