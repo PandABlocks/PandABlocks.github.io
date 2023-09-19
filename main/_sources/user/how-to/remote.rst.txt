@@ -37,13 +37,15 @@ can then::
 
 
 If the two md5 sums match it has copied correctly. Within /boot you should find::
-    boot.scr
-    uImage
-    boot.bin
-    devicetree.dtb
-    uinitramfs. 
+    -boot.scr
+    -uImage
+    -boot.bin
+    -devicetree.dtb
+    -uinitramfs. 
 
-Please note that boot.bin and devicetree.dtb now come from the PandABlocks-FPGA build.
+.. note::
+    For PandA v3.0 and beyond boot.bin and devicetree.dtb now come from the PandABlocks-FPGA build.
+
 You can power cycle the box and it will install the new rootfs.
 
 .. _GitHub: https://github.com/PandABlocks/PandABlocks-rootfs/releases

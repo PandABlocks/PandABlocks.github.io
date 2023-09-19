@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Updating a PandA via SSH &#8212; PandABlocks.github.io 0.1.dev68+g498c5ac documentation</title>
+    <title>Updating a PandA via SSH &#8212; PandABlocks.github.io 0.1.dev68+geb9e666 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=927b94d3fcb96560df09" />
   <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=927b94d3fcb96560df09"></script>
 
-    <script src="../../_static/documentation_options.js?v=c96ae335"></script>
+    <script src="../../_static/documentation_options.js?v=63ec2d41"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -402,7 +402,7 @@ document.write(`
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/release_compatibility.html">Release Compatability table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/release_compatibility.html">Release Compatibility table</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
 </div>
@@ -489,15 +489,18 @@ $ ssh root@my_panda_ip
 </pre></div>
 </div>
 <dl class="simple">
-<dt>If the two md5 sums match it has copied correctly. Within /boot you should find::</dt><dd><p>boot.scr
-uImage
-boot.bin
-devicetree.dtb
-uinitramfs.</p>
+<dt>If the two md5 sums match it has copied correctly. Within /boot you should find::</dt><dd><p>-boot.scr
+-uImage
+-boot.bin
+-devicetree.dtb
+-uinitramfs.</p>
 </dd>
 </dl>
-<p>Please note that boot.bin and devicetree.dtb now come from the PandABlocks-FPGA build.
-You can power cycle the box and it will install the new rootfs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For PandA v3.0 and beyond boot.bin and devicetree.dtb now come from the PandABlocks-FPGA build.</p>
+</div>
+<p>You can power cycle the box and it will install the new rootfs.</p>
 </section>
 <section id="updating-zpkg-packages">
 <h2>Updating zpkg packages<a class="headerlink" href="#updating-zpkg-packages" title="Link to this heading">#</a></h2>
