@@ -1,0 +1,14 @@
+Release Compatability table
+===========================
+
+Please find below a table show which PandA releases are compatabile together.
+
+
+
+============== ===============================
+rootfs version Compatabile zpkgs
+============== ===============================
+3.0            3.0
+2.0*           2.0*
+============== ===============================
+
