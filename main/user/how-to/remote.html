@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Updating a PandA via SSH &#8212; PandABlocks.github.io 0.1.dev69+g83c948f documentation</title>
+    <title>Updating a PandA via SSH &#8212; PandABlocks.github.io 0.1.dev69+gf3a4801 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
   <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script src="../../_static/documentation_options.js?v=aed70106"></script>
+    <script src="../../_static/documentation_options.js?v=22c13d08"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -506,6 +506,15 @@ $ ssh root@my_panda_ip
 </section>
 <section id="updating-zpkg-packages">
 <h2>Updating zpkg packages<a class="headerlink" href="#updating-zpkg-packages" title="Link to this heading">#</a></h2>
+<dl class="simple">
+<dt>A PandA firmware installation consists of 4 Zpkgs:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="mailto:panda-fpga&#37;&#52;&#48;*&#46;zpg">panda-fpga<span>&#64;</span>*<span>&#46;</span>zpg</a></p></li>
+<li><p><a class="reference external" href="mailto:panda-server&#37;&#52;&#48;*&#46;zpg">panda-server<span>&#64;</span>*<span>&#46;</span>zpg</a></p></li>
+<li><p><a class="reference external" href="mailto:panda-webcontrol&#37;&#52;&#48;*&#46;zpg">panda-webcontrol<span>&#64;</span>*<span>&#46;</span>zpg</a></p></li>
+<li><p><a class="reference external" href="mailto:panda-slowfpga&#37;&#52;&#48;*&#46;zpg">panda-slowfpga<span>&#64;</span>*<span>&#46;</span>zpg</a> (PandA 3.0 onwards)</p></li>
+</ul>
+</dd>
+</dl>
 <p>Download new zpkg files from the appropriate GitHub repositories (these are shown
 at &lt;PandA-URL&gt;/admin/packages/list), then:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scp *.zpg root@my_panda_ip:/tmp
