@@ -1,0 +1,798 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="dark">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Position Capture Tutorial &#8212; PandABlocks.github.io 3.1.dev5+g58e44af documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=41ed5721"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user/tutorials/tutorial2_position_capture';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.2';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://PandABlocks.github.io/PandABlocks.github.io/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'doc_changes';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="icon" href="../../_static/PandA-logo.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Position Compare Tutorial" href="tutorial3_position_compare.html" />
+    <link rel="prev" title="Blinking LEDs Tutorial" href="tutorial1_blinking_leds.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/PandA-logo-for-black-background.svg" class="logo__image only-dark" alt=""/>
+    <script>document.write(`<img src="../../_static/PandA-logo-for-black-background.svg" class="logo__image only-light" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">PandABlocks.github.io</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../developer/index.html">
+                        Developer Guide
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://github.com/PandABlocks/PandABlocks.github.io/releases">
+                    Release Notes
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/PandABlocks/PandABlocks.github.io" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/PandABlocks.github.io" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-cube fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../developer/index.html">
+                        Developer Guide
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://github.com/PandABlocks/PandABlocks.github.io/releases">
+                    Release Notes
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/PandABlocks/PandABlocks.github.io" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/PandABlocks.github.io" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-cube fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tutorial1_blinking_leds.html">Blinking LEDs Tutorial</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Position Capture Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial3_position_compare.html">Position Compare Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial4_snake_scan.html">Snake Scan Tutorial</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../how-to/remote.html">Updating a PandA via SSH</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference/migration_guide.html">Migration Guide</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../reference/release_compatibility.html">Release Compatibility table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Position...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="position-capture-tutorial">
+<span id="id1"></span><h1>Position Capture Tutorial<a class="headerlink" href="#position-capture-tutorial" title="Link to this heading">#</a></h1>
+<p>This tutorial will introduce you to the Position Capture interface of
+PandABlocks, how to provide trigger signals to control when these capture points
+are taken and visualize the data.</p>
+<section id="loading-the-tutorial-design">
+<h2>Loading the tutorial design<a class="headerlink" href="#loading-the-tutorial-design" title="Link to this heading">#</a></h2>
+<p>Select “template_tutorial2_pcap” from the Design dropdown box and the settings
+and wiring of the Blocks in the PandA will be changed to the following:</p>
+<img alt="../../_images/tutorial2_layout.png" src="../../_images/tutorial2_layout.png" />
+</section>
+<section id="how-the-design-works">
+<h2>How the design works<a class="headerlink" href="#how-the-design-works" title="Link to this heading">#</a></h2>
+<p>This design has two CLOCK Blocks, which are enabled as soon as the PCAP Block
+becomes active:</p>
+<ul class="simple">
+<li><p>The first CLOCK is wired to PCAP trigger and gate. The gate is a level driven
+signal that provides the window of time that a capture should be active over.
+The trigger is an edge driven signal that actually captures data. In this
+example, PCAP.TRIG_EDGE=”Falling” so capture will be triggered on a falling
+edge of the trigger.</p></li>
+<li><p>The second CLOCK is wired to a COUNTER, triggering the increment of the
+counter value.</p></li>
+</ul>
+<p>We start off with both CLOCK Blocks set to a period of 1s, so each second the
+COUNTER will increment by one, followed by a PCAP trigger half a second later.
+This is best viewed as a timing diagram:</p>
+<p>(<a class="reference download internal" download="" href="../../_downloads/f4b28c8d0cd34cd9868dfca21e485b81/tutorial2_position_capture-1.py"><code class="xref download docutils literal notranslate"><span class="pre">Source</span> <span class="pre">code</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/f57f35fe56d3983f75c5c463fc2aa4b9/tutorial2_position_capture-1.png"><code class="xref download docutils literal notranslate"><span class="pre">png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/ad04402445b65ff60a15ba95f3d147be/tutorial2_position_capture-1.hires.png"><code class="xref download docutils literal notranslate"><span class="pre">hires.png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/5bef59fe249d5283a14772fe8c2e7605/tutorial2_position_capture-1.pdf"><code class="xref download docutils literal notranslate"><span class="pre">pdf</span></code></a>)</p>
+<figure class="align-default">
+<img alt="../../_images/tutorial2_position_capture-1.png" class="plot-directive" src="../../_images/tutorial2_position_capture-1.png" />
+</figure>
+<p>What PCAP does on that trigger is determined by the PCAP Block settings, and
+the contents of the Bits and Positions tables. For Bits you can turn capture
+(instantaneous at the time of trigger) on and off. For Positions, you have a
+choice of:</p>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>Capture</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p>No</p></td>
+<td><p>Don’t capture</p></td>
+</tr>
+<tr class="row-odd"><td><p>Value</p></td>
+<td><p>Instantaneous capture at time of trigger</p></td>
+</tr>
+<tr class="row-even"><td><p>Diff</p></td>
+<td><p>The difference in the value while gate was high</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sum</p></td>
+<td><p>The sum of all the samples while gate was high</p></td>
+</tr>
+<tr class="row-even"><td><p>Min</p></td>
+<td><p>The smallest value seen while gate was high</p></td>
+</tr>
+<tr class="row-odd"><td><p>Max</p></td>
+<td><p>The largest value seen while gate was high</p></td>
+</tr>
+<tr class="row-even"><td><p>Mean</p></td>
+<td><p>The average value seen while gate was high</p></td>
+</tr>
+<tr class="row-odd"><td><p>Min Max</p></td>
+<td><p>Capture both Min and Max</p></td>
+</tr>
+<tr class="row-even"><td><p>Min Max Mean</p></td>
+<td><p>Capture Min Max and Mean</p></td>
+</tr>
+</tbody>
+</table>
+<p>There are also a handful of other fields like the start of frame, end of frame
+and trigger time that can be captured by setting fields on the PCAP Block. If
+you click on the PCAP Block you will see them in the Outputs section:</p>
+<img alt="../../_images/tutorial2_pcap.png" src="../../_images/tutorial2_pcap.png" />
+<p>In the inputs section of the PCAP Block we can see that we have set a delay of
+1 for both the Trig and Gate. Delays on bit inputs are in FPGA clock ticks, and
+are there to compensate for different length data paths that need to be aligned.
+Each Block and each wire in PandA take 1 clock tick each. In this example, both
+COUNTER1 and PCAP are being triggered by a CLOCK in the same clock tick, but
+we want to delay the input to PCAP by one clock tick so that it sees the updated
+COUNTER1 value <em>after</em> the corresponding CLOCK rising edge.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The delay fields of the PCAP Block are also shown as small badges on the
+input ports of the Block</p>
+</div>
+<p>We can set COUNTER1.OUT to capture the Value at trigger by modifying the
+Positions table and pressing Submit:</p>
+<img alt="../../_images/tutorial2_positions.png" src="../../_images/tutorial2_positions.png" />
+<p>Now we can get a client ready to receive data. We can capture data in ASCII or
+Binary format as detailed in the TCP server documentation, and TANGO and EPICS
+have clients to do this. For this tutorial we will just use the ASCII format on
+the commandline to check:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nc &lt;panda-ip&gt; 8889
+</pre></div>
+</div>
+<p>Here we could specify binary output and header format, but we’ll just stick
+with the default ASCII output (the default). Press Return again, and we will
+see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OK</span>
+</pre></div>
+</div>
+<p>Now go back to the PandA layout and select the PCAP Block, pressing the ARM
+button. The Active light will go on and data will start streaming in the
+terminal window until Disarm is pressed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">missed</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">process</span><span class="p">:</span> <span class="n">Scaled</span>
+<span class="nb">format</span><span class="p">:</span> <span class="n">ASCII</span>
+<span class="n">fields</span><span class="p">:</span>
+ <span class="n">COUNTER1</span><span class="o">.</span><span class="n">OUT</span> <span class="n">double</span> <span class="n">Value</span> <span class="n">scale</span><span class="p">:</span> <span class="mi">1</span> <span class="n">offset</span><span class="p">:</span> <span class="mi">0</span> <span class="n">units</span><span class="p">:</span>
+
+ <span class="mi">1</span>
+ <span class="mi">2</span>
+ <span class="mi">3</span>
+ <span class="mi">4</span>
+<span class="n">END</span> <span class="mi">4</span> <span class="n">Disarmed</span>
+</pre></div>
+</div>
+<p>This tallies with the timing diagram we saw above, the captured value matches
+the instantaneous value of COUNTER1.OUT when PCAP.TRIG went high.</p>
+<p>We will now make the COUNTER1.OUT increment 5 times faster. Set CLOCK2.PERIOD
+to 0.2s, and click PCAP.ARM and you will see the captured value change:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">missed</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">process</span><span class="p">:</span> <span class="n">Scaled</span>
+<span class="nb">format</span><span class="p">:</span> <span class="n">ASCII</span>
+<span class="n">fields</span><span class="p">:</span>
+ <span class="n">COUNTER1</span><span class="o">.</span><span class="n">OUT</span> <span class="n">double</span> <span class="n">Value</span> <span class="n">scale</span><span class="p">:</span> <span class="mi">1</span> <span class="n">offset</span><span class="p">:</span> <span class="mi">0</span> <span class="n">units</span><span class="p">:</span>
+
+ <span class="mi">3</span>
+ <span class="mi">8</span>
+ <span class="mi">13</span>
+ <span class="mi">18</span>
+<span class="n">END</span> <span class="mi">4</span> <span class="n">Disarmed</span>
+</pre></div>
+</div>
+<p>If we look at the timing plot, we can see this also matched what we expect, the
+value is captured mid way through each increment of 5:</p>
+<p>(<a class="reference download internal" download="" href="../../_downloads/479ab8342eb97d88724b54dbc5bb6ff8/tutorial2_position_capture-2.py"><code class="xref download docutils literal notranslate"><span class="pre">Source</span> <span class="pre">code</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/d4cfcf264c8da6eea4003de7ebb183a8/tutorial2_position_capture-2.png"><code class="xref download docutils literal notranslate"><span class="pre">png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/1b7a41d2e3a62e7e15dad8bbd58f16aa/tutorial2_position_capture-2.hires.png"><code class="xref download docutils literal notranslate"><span class="pre">hires.png</span></code></a>, <a class="reference download internal" download="" href="../../_downloads/b1044b53fd298f2e9771da4a700c37f2/tutorial2_position_capture-2.pdf"><code class="xref download docutils literal notranslate"><span class="pre">pdf</span></code></a>)</p>
+<figure class="align-default">
+<img alt="../../_images/tutorial2_position_capture-2.png" class="plot-directive" src="../../_images/tutorial2_position_capture-2.png" />
+</figure>
+<p>Now let’s investigate the other options. If we change the Positions table
+so COUNTER1.OUT captures the Diff instead of Value then we will see it captures
+the difference between the value at the rising edge of the gate, and the
+falling edge:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">missed</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">process</span><span class="p">:</span> <span class="n">Scaled</span>
+<span class="nb">format</span><span class="p">:</span> <span class="n">ASCII</span>
+<span class="n">fields</span><span class="p">:</span>
+ <span class="n">COUNTER1</span><span class="o">.</span><span class="n">OUT</span> <span class="n">double</span> <span class="n">Diff</span> <span class="n">scale</span><span class="p">:</span> <span class="mi">1</span> <span class="n">offset</span><span class="p">:</span> <span class="mi">0</span> <span class="n">units</span><span class="p">:</span>
+
+ <span class="mi">2</span>
+ <span class="mi">2</span>
+ <span class="mi">2</span>
+ <span class="mi">2</span>
+<span class="n">END</span> <span class="mi">4</span> <span class="n">Disarmed</span>
+</pre></div>
+</div>
+<p>This again matches the timing plot, GATE rises when COUNTER was at 1, and falls
+at 3, then rises at 6 and falls at 8.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If we hadn’t put in the 1 clock tick delays for Gate and Trig then we would
+see 3 rather than 2, as GATE would rise at 0 and fall at 3, then rise at 5
+and fall at 8</p>
+</div>
+<p>This capture output is generally used with COUNTER Blocks connected to an input
+fed from a <a class="reference external" href="https://hal.archives-ouvertes.fr/hal-01573024/document">V2F</a> to capture the total counts produced in a given time window.</p>
+<p>If we change COUNTER1.OUT to capture Min Max and Mean, we will see the other
+options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">missed</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">process</span><span class="p">:</span> <span class="n">Scaled</span>
+<span class="nb">format</span><span class="p">:</span> <span class="n">ASCII</span>
+<span class="n">fields</span><span class="p">:</span>
+ <span class="n">COUNTER1</span><span class="o">.</span><span class="n">OUT</span> <span class="n">double</span> <span class="n">Min</span> <span class="n">scale</span><span class="p">:</span> <span class="mi">1</span> <span class="n">offset</span><span class="p">:</span> <span class="mi">0</span> <span class="n">units</span><span class="p">:</span>
+ <span class="n">COUNTER1</span><span class="o">.</span><span class="n">OUT</span> <span class="n">double</span> <span class="n">Max</span> <span class="n">scale</span><span class="p">:</span> <span class="mi">1</span> <span class="n">offset</span><span class="p">:</span> <span class="mi">0</span> <span class="n">units</span><span class="p">:</span>
+ <span class="n">COUNTER1</span><span class="o">.</span><span class="n">OUT</span> <span class="n">double</span> <span class="n">Mean</span> <span class="n">scale</span><span class="p">:</span> <span class="mi">1</span> <span class="n">offset</span><span class="p">:</span> <span class="mi">0</span> <span class="n">units</span><span class="p">:</span>
+
+ <span class="mi">1</span> <span class="mi">3</span> <span class="mf">1.8</span>
+ <span class="mi">6</span> <span class="mi">8</span> <span class="mf">6.8</span>
+ <span class="mi">11</span> <span class="mi">13</span> <span class="mf">11.8</span>
+ <span class="mi">16</span> <span class="mi">18</span> <span class="mf">16.8</span>
+<span class="n">END</span> <span class="mi">4</span> <span class="n">Disarmed</span>
+</pre></div>
+</div>
+<p>Here we can see our min and max values as we expected, and also the Mean of
+the COUNTER value during the total gate:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># (sum of counter_value * time_at_value) / gate_time = mean</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="mf">0.2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">0.2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.5</span> <span class="o">=</span> <span class="mf">1.8</span>
+<span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="mf">0.2</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">*</span> <span class="mf">0.2</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.5</span> <span class="o">=</span> <span class="mf">6.8</span>
+</pre></div>
+</div>
+<p>This capture output is generally used with encoders, to give the min, max and
+mean value of the encoder over a detector frame.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>This tutorial has shown how to use the Position Capture interface of a PandA
+to capture entries on the position bus, and introduced the different capture
+types. It has also introduced the COUNTER block that is useful connecting to
+the pulse train produced by a <a class="reference external" href="https://hal.archives-ouvertes.fr/hal-01573024/document">V2F</a>. In the next tutorial we will read about
+how to use position compare to generate triggers from position outputs, and
+how to configure position capture to work with it.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="tutorial1_blinking_leds.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Blinking LEDs Tutorial</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="tutorial3_position_compare.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Position Compare Tutorial</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-tutorial-design">Loading the tutorial design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-design-works">How the design works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/PandABlocks/PandABlocks.github.io/edit/doc_changes/docs/user/tutorials/tutorial2_position_capture.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/user/tutorials/tutorial2_position_capture.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
