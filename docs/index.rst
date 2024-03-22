@@ -22,6 +22,12 @@ The documentation is split into 2 sections:
 
         The Developer Guide contains documentation on how to develop and contribute changes back to PandABlocks.github.io.
 
+    .. grid-item-card:: :material-regular:`info;3em`
+
+        .. toctree::
+            :caption: Explanations
+            :maxdepth: 1
+
 The Existing Documentation for the PandABlocks projects can be found:
 
 ======================= =====================================================
@@ -32,3 +38,8 @@ PandABlocks-webcontrol  https://PandABlocks.github.io/PandABlocks-webcontrol
 PandABlocks-client      https://PandABlocks.github.io/PandABlocks-client
 ======================= =====================================================
 
+.. toctree::
+    :hidden:
+
+    user/index
+    developer/index
