@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Updating a PandA via SSH &#8212; PandABlocks.github.io 3.1.dev5+g58e44af documentation</title>
+    <title>Updating a PandA via SSH &#8212; PandABlocks.github.io 3.1.dev6+ga95f8b7 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=41ed5721"></script>
+    <script src="../../_static/documentation_options.js?v=414ffb06"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -486,10 +486,10 @@ in the <a class="reference external" href="https://pandablocks.github.io/PandABl
 PandAs at once. The SSH interface can be used to do this.</p>
 <p>To gain access over SSH, either add an <code class="docutils literal notranslate"><span class="pre">authorized_keys</span></code> file to the SD card,
 or load it from USB via the Admin interface.</p>
-<p>It is then possible to log in remotely and perform operations on the PandA</p>
+<p>It is then possible to log in remotely and perform operations on the PandA.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>PandA only has a single user, root, and remote access is done as this user.
+<p>PandA only has a single user; root, and remote access is done as this user.
 Root has privileges to break the system, so be careful when running the
 commands below.</p>
 </div>
@@ -527,10 +527,10 @@ but are combined in the <code class="docutils literal notranslate"><span class="
 <h2>Updating zpkg packages<a class="headerlink" href="#updating-zpkg-packages" title="Link to this heading">#</a></h2>
 <dl class="simple">
 <dt>A PandA firmware installation consists of 4 Zpkgs:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="mailto:panda-fpga&#37;&#52;&#48;*&#46;zpg">panda-fpga<span>&#64;</span>*<span>&#46;</span>zpg</a></p></li>
-<li><p><a class="reference external" href="mailto:panda-server&#37;&#52;&#48;*&#46;zpg">panda-server<span>&#64;</span>*<span>&#46;</span>zpg</a></p></li>
-<li><p><a class="reference external" href="mailto:panda-webcontrol&#37;&#52;&#48;*&#46;zpg">panda-webcontrol<span>&#64;</span>*<span>&#46;</span>zpg</a></p></li>
-<li><p><a class="reference external" href="mailto:panda-slowfpga&#37;&#52;&#48;*&#46;zpg">panda-slowfpga<span>&#64;</span>*<span>&#46;</span>zpg</a> (PandA 3.0 onwards)</p></li>
+<li><p>panda-fpga&#64;*.zpg</p></li>
+<li><p>panda-server&#64;*.zpg</p></li>
+<li><p>panda-webcontrol&#64;*.zpg</p></li>
+<li><p>panda-slowfpga&#64;*.zpg (PandA 3.0 onwards)</p></li>
 </ul>
 </dd>
 </dl>
@@ -541,8 +541,8 @@ $ ssh root@my_panda_ip
 </pre></div>
 </div>
 <p>This will install the new versions of the appropriate packages, and restart the services
-on the box to use them. From the PandA 3.0 release and beyond a new zpkg file will be
-needed: <a class="reference external" href="mailto:panda-slowfpga&#37;&#52;&#48;*&#46;zpg">panda-slowfpga<span>&#64;</span>*<span>&#46;</span>zpg</a>.</p>
+on the box to use them. From the PandA 3.0 release and beyond, a new zpkg file will be
+needed: panda-slowfpga&#64;*.zpg.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Release 1.0 of the rootfs contained a bug which means that if 1.0 or later
