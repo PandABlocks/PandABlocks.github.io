@@ -19,13 +19,20 @@ The documentation is split into 2 sections:
 
         The User Guide contains documentation on how to install and use PandABlocks.github.io.
 
-    .. grid-item-card:: :material-regular:`code;4em`
-        :link: developer/index
-        :link-type: doc
+    .. grid-item-card:: :material-regular:`task;3em`
+
+        .. toctree::
+            :caption: How-to Guides
+            :maxdepth: 1
+
+            developer/how-to/contribute
+            developer/how-to/update-tools
+            developer/how-to/make-release
+            developer/how-to/run-container
 
         +++
 
-        The Developer Guide contains documentation on how to develop and contribute changes back to PandABlocks.github.io.
+        Practical step-by-step guides for day-to-day dev tasks and experienced users.
 
     .. grid-item-card:: :material-regular:`info;3em`
 
