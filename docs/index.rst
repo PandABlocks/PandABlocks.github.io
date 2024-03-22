@@ -17,10 +17,10 @@ The documentation is split into 4 sections:
             :caption: Tutorials
             :maxdepth: 1
 
-            tutorials/tutorial1_blinking_leds.rst
-            tutorials/tutorial2_position_capture.rst
-            tutorials/tutorial3_position_compare.rst
-            tutorials/tutorial4_snake_scan.rst
+            user/tutorials/tutorial1_blinking_leds.rst
+            user/tutorials/tutorial2_position_capture.rst
+            usertutorials/tutorial3_position_compare.rst
+            user/tutorials/tutorial4_snake_scan.rst
 
 
         +++
@@ -33,11 +33,11 @@ The documentation is split into 4 sections:
             :caption: How-to Guides
             :maxdepth: 1
 
-            how-to/contribute
-            how-to/update-tools
-            how-to/make-release
-            how-to/run-container
-	    how-to/remote.rst
+            developer/how-to/contribute
+            developer/how-to/update-tools
+            developer/how-to/make-release
+            developer/how-to/run-container
+	    user/how-to/remote.rst
 
         +++
 
@@ -49,7 +49,7 @@ The documentation is split into 4 sections:
             :caption: Explanations
             :maxdepth: 1
 
-            explanations/decisions
+            developer/explanations/decisions
 
         +++
 
@@ -61,9 +61,9 @@ The documentation is split into 4 sections:
             :caption: Reference
             :maxdepth: 1
 
-            reference/standards
-            reference/migration_guide
-            reference/release_compatibility
+            developer/reference/standards
+            user/reference/migration_guide
+            user/reference/release_compatibility
             ../genindex
 
         +++
@@ -79,8 +79,4 @@ PandABlocks-webcontrol  https://PandABlocks.github.io/PandABlocks-webcontrol
 PandABlocks-client      https://PandABlocks.github.io/PandABlocks-client
 ======================= =====================================================
 
-.. toctree::
-    :hidden:
 
-    user/index
-    developer/index
