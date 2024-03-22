@@ -9,6 +9,7 @@ How the documentation is structured
 The documentation is split into 2 sections:
 
 .. grid:: 2
+    :gutter: 4
 
     .. grid-item-card:: :material-regular:`person;4em`
         :link: user/index
@@ -27,6 +28,10 @@ The documentation is split into 2 sections:
         .. toctree::
             :caption: Explanations
             :maxdepth: 1
+	    
+	    developer/explanations/decisions
+	
+	Explanations of how and why the architecture is why it is.
 
 The Existing Documentation for the PandABlocks projects can be found:
 
