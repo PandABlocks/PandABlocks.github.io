@@ -6,69 +6,22 @@
 How the documentation is structured
 -----------------------------------
 
-The documentation is split into 4 sections:
+The documentation is split into 2 sections:
 
 .. grid:: 2
-    :gutter: 4
 
-    .. grid-item-card:: :material-regular:`directions_run;3em`
+    .. grid-item-card:: :material-regular:`person;4em`
+        :link: user/index
+        :link-type: doc
 
-        .. toctree::
-            :caption: Tutorials
-            :maxdepth: 1
+        The User Guide contains documentation on how to install and use PandABlocks.github.io.
 
-            user/tutorials/tutorial1_blinking_leds.rst
-            user/tutorials/tutorial2_position_capture.rst
-            usertutorials/tutorial3_position_compare.rst
-            user/tutorials/tutorial4_snake_scan.rst
+    .. grid-item-card:: :material-regular:`code;4em`
+        :link: developer/index
+        :link-type: doc
 
+        The Developer Guide contains documentation on how to develop and contribute changes back to PandABlocks.github.io.
 
-        +++
-
-        Tutorials for installation and typical usage. New Users start here.
-
-    .. grid-item-card:: :material-regular:`task;3em`
-
-        .. toctree::
-            :caption: How-to Guides
-            :maxdepth: 1
-
-            developer/how-to/contribute
-            developer/how-to/update-tools
-            developer/how-to/make-release
-            developer/how-to/run-container
-	    user/how-to/remote.rst
-
-        +++
-
-        Practical step-by-step guides for day-to-day dev tasks and more experienced users.
-
-    .. grid-item-card:: :material-regular:`apartment;3em`
-
-        .. toctree::
-            :caption: Explanations
-            :maxdepth: 1
-
-            developer/explanations/decisions
-
-        +++
-
-        Explanations of how and why the architecture is why it is.
-
-    .. grid-item-card:: :material-regular:`description;3em`
-
-        .. toctree::
-            :caption: Reference
-            :maxdepth: 1
-
-            developer/reference/standards
-            user/reference/migration_guide
-            user/reference/release_compatibility
-            ../genindex
-
-        +++
-
-        Technical reference material on standards in use.
 The Existing Documentation for the PandABlocks projects can be found:
 
 ======================= =====================================================
@@ -79,4 +32,8 @@ PandABlocks-webcontrol  https://PandABlocks.github.io/PandABlocks-webcontrol
 PandABlocks-client      https://PandABlocks.github.io/PandABlocks-client
 ======================= =====================================================
 
+.. toctree::
+    :hidden:
 
+    user/index
+    developer/index
