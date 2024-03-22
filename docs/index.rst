@@ -15,11 +15,15 @@ The documentation is split into 2 sections:
         :link: user/index
         :link-type: doc
 
+        +++
+
         The User Guide contains documentation on how to install and use PandABlocks.github.io.
 
     .. grid-item-card:: :material-regular:`code;4em`
         :link: developer/index
         :link-type: doc
+
+        +++
 
         The Developer Guide contains documentation on how to develop and contribute changes back to PandABlocks.github.io.
 
@@ -30,8 +34,25 @@ The documentation is split into 2 sections:
             :maxdepth: 1
 	    
 	    developer/explanations/decisions
+        
+        +++
 	
 	Explanations of how and why the architecture is why it is.
+
+    .. grid-item-card:: :material-regular:`menu_book;3em`
+
+        .. toctree::
+            :caption: Reference
+            :maxdepth: 1
+
+	    developer/reference/standards
+            user/reference/migration_guide
+            user/reference/release_compatibility
+            ../genindex
+
+        +++
+
+        Technical reference material including APIs and release notes.
 
 The Existing Documentation for the PandABlocks projects can be found:
 
