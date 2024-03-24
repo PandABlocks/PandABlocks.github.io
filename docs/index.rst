@@ -25,9 +25,13 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`task;3em`
 
         .. toctree::
-            :maxdepth: 2
+            :caption: How-to Guides
+            :maxdepth: 1
 
-            how-to
+            developer/how-to/contribute
+            developer/how-to/update-tools
+            developer/how-to/make-release
+            developer/how-to/run-container
 
         +++
 
