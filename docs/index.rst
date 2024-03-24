@@ -16,7 +16,7 @@ The documentation is split into 4 sections:
         .. toctree::
             :maxdepth: 2
 	    
-	    tutorials.rst
+	    tutorial
 
         +++
 
