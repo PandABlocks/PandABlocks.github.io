@@ -1,10 +1,10 @@
-How-to Guide
+Tutorials
 ==========
 
-Practical step-by-step guides for day-to-day dev tasks and experienced users.
+Tutorials for installation and typical usage. New users start here.
 
 .. toctree::
     :maxdepth: 1
     :glob:
 
-    user/how-to/*
+    user/tutorials/*
