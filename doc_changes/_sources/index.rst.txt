@@ -36,7 +36,7 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`info;3em`
 
         .. toctree::
-            :maxdepth: 1
+            :maxdepth: 2
 	    
 	    explanations
         

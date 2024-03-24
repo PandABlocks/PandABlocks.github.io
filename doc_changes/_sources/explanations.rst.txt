@@ -1,7 +1,7 @@
 Tutorials
 ==========
 
-Tutorials for installation and typical usage. New users start here.
+Explanations of how the library works and why it works that way.
 
 .. toctree::
     :maxdepth: 1
