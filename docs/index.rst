@@ -13,10 +13,12 @@ The documentation is split into 4 sections:
 
     .. grid-item-card:: :material-regular:`directions_walk;3em`
 
-        :link: user/index
-	:link-type: doc
+        .. toctree::
+            :caption: Tutorials
+            :maxdepth: 1
 
-	    user/tutorials/tutorial1_blinking_leds.rst		
+
+            user/tutorials/tutorial1_blinking_leds.rst		
             user/tutorials/tutorial2_position_capture.rst
             user/tutorials/tutorial3_position_compare.rst
             user/tutorials/tutorial4_snake_scan.rst
