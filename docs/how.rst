@@ -1,6 +1,7 @@
 How-to Guide
 ==========
 
+Tutorials for installation and typical usage. New users start here.
 
 .. toctree::
     :maxdepth: 1
