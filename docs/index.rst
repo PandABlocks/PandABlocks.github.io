@@ -36,10 +36,9 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`info;3em`
 
         .. toctree::
-            :caption: Explanations
             :maxdepth: 1
 	    
-	    developer/explanations/decisions
+	    explanations
         
         +++
 	
