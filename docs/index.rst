@@ -37,7 +37,7 @@ The documentation is split into 4 sections:
 
         .. toctree::
             :maxdepth: 2
-	    
+
 	    explanations
         
         +++
@@ -65,8 +65,3 @@ PandABlocks-webcontrol  https://PandABlocks.github.io/PandABlocks-webcontrol
 PandABlocks-client      https://PandABlocks.github.io/PandABlocks-client
 ======================= =====================================================
 
-.. toctree::
-    :hidden:
-
-    user/index
-    developer/index
