@@ -27,7 +27,7 @@ The documentation is split into 4 sections:
         .. toctree::
             :maxdepth: 2
 
-            how-to
+
 
         +++
 
@@ -38,7 +38,7 @@ The documentation is split into 4 sections:
         .. toctree::
             :maxdepth: 2
 
-	    explanations
+
         
         +++
 	
@@ -49,7 +49,7 @@ The documentation is split into 4 sections:
         .. toctree::
             :maxdepth: 2
 
-	    reference
+
 
         +++
 
