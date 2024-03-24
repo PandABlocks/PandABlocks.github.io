@@ -25,7 +25,7 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`task;3em`
 
         .. toctree::
-            :maxdepth: 2
+            :maxdepth: 1
 
 
 
@@ -36,7 +36,7 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`info;3em`
 
         .. toctree::
-            :maxdepth: 2
+            :maxdepth: 1
 
 
         
@@ -47,7 +47,7 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`menu_book;3em`
 
         .. toctree::
-            :maxdepth: 2
+            :maxdepth: 1
 
 
 
