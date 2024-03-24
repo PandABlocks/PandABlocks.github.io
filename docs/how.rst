@@ -1,4 +1,4 @@
-Tutorials
+How To Guides
 ==========
 
 Practical step-by-step guides for day-to-day dev tasks and experienced users.
