@@ -16,6 +16,7 @@ The documentation is split into 4 sections:
         .. toctree::
             :caption: Tutorials
             :maxdepth: 1
+	    :hidden:
 
 
             user/tutorials/tutorial1_blinking_leds.rst		
