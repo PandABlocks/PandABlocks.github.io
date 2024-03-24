@@ -8,3 +8,4 @@ Tutorials for installation and typical usage. New users start here.
     :glob:
 
     user/how-to/*
+    developer/how-to/*
