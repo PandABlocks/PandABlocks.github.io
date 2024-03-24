@@ -1,7 +1,6 @@
 How-to Guide
 ==========
 
-Practical step-by-step guides for day-to-day dev tasks and experienced users.
 
 .. toctree::
     :maxdepth: 1
