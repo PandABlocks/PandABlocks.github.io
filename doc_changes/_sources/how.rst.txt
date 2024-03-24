@@ -7,4 +7,4 @@ Tutorials for installation and typical usage. New users start here.
     :maxdepth: 1
     :glob:
 
-    user/tutorials/*
+    user/how-to/*
