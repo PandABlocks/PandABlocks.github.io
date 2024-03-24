@@ -6,24 +6,33 @@
 How the documentation is structured
 -----------------------------------
 
-The documentation is split into 2 sections:
+The documentation is split into 4 sections:
 
 .. grid:: 2
     :gutter: 4
 
-    .. grid-item-card:: :material-regular:`person;4em`
-        :link: user/index
-        :link-type: doc
+    .. grid-item-card:: :material-regular:`directions_walk;3em`
+
+        .. toctree::
+            :caption: Tutorials
+            :maxdepth: 1
+	    :hidden:
+
+            user/tutorials/tutorial1_blinking_leds.rst		
+            user/tutorials/tutorial2_position_capture.rst
+            user/tutorials/tutorial3_position_compare.rst
+            user/tutorials/tutorial4_snake_scan.rst
 
         +++
 
-        The User Guide contains documentation on how to install and use PandABlocks.github.io.
+        Tutorials for installation and typical usage. New users start here.
 
     .. grid-item-card:: :material-regular:`task;3em`
 
         .. toctree::
             :caption: How-to Guides
             :maxdepth: 1
+	    :hidden:
 
             developer/how-to/contribute
             developer/how-to/update-tools
@@ -39,6 +48,7 @@ The documentation is split into 2 sections:
         .. toctree::
             :caption: Explanations
             :maxdepth: 1
+	    :hidden:
 	    
 	    developer/explanations/decisions
         
@@ -51,6 +61,7 @@ The documentation is split into 2 sections:
         .. toctree::
             :caption: Reference
             :maxdepth: 1
+	    :hidden:
 
 	    developer/reference/standards
             user/reference/migration_guide
