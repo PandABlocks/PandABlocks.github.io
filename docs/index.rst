@@ -16,7 +16,7 @@ The documentation is split into 4 sections:
         .. toctree::
             :maxdepth: 2
 	    
-	    tutorial
+	    tutorials
 
         +++
 
@@ -25,13 +25,9 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`task;3em`
 
         .. toctree::
-            :caption: How-to Guides
-            :maxdepth: 1
+            :maxdepth: 2
 
-            developer/how-to/contribute
-            developer/how-to/update-tools
-            developer/how-to/make-release
-            developer/how-to/run-container
+            how-to
 
         +++
 
@@ -40,10 +36,9 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`info;3em`
 
         .. toctree::
-            :caption: Explanations
-            :maxdepth: 1
+            :maxdepth: 2
 	    
-	    developer/explanations/decisions
+	    explanations
         
         +++
 	
@@ -52,13 +47,9 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`menu_book;3em`
 
         .. toctree::
-            :caption: Reference
-            :maxdepth: 1
+            :maxdepth: 2
 
-	    developer/reference/standards
-            user/reference/migration_guide
-            user/reference/release_compatibility
-            ../genindex
+	    reference
 
         +++
 
