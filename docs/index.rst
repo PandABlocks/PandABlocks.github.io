@@ -13,10 +13,11 @@ The documentation is split into 4 sections:
 
     .. grid-item-card:: :material-regular:`directions_walk;3em`
 
-        .. toctree::
+        :link: user/index
+	:link-type: doc
             :caption: Tutorials
             :maxdepth: 1
-	    :hidden:
+
 
             user/tutorials/tutorial1_blinking_leds.rst		
             user/tutorials/tutorial2_position_capture.rst
@@ -32,7 +33,6 @@ The documentation is split into 4 sections:
         .. toctree::
             :caption: How-to Guides
             :maxdepth: 1
-	    :hidden:
 
             developer/how-to/contribute
             developer/how-to/update-tools
@@ -48,7 +48,6 @@ The documentation is split into 4 sections:
         .. toctree::
             :caption: Explanations
             :maxdepth: 1
-	    :hidden:
 	    
 	    developer/explanations/decisions
         
@@ -61,7 +60,6 @@ The documentation is split into 4 sections:
         .. toctree::
             :caption: Reference
             :maxdepth: 1
-	    :hidden:
 
 	    developer/reference/standards
             user/reference/migration_guide
