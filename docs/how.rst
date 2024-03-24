@@ -1,5 +1,5 @@
-How-to
-==========
+How-to Guides
+==============
 
 Practical step-by-step guides for day-to-day dev tasks and experienced users.
 

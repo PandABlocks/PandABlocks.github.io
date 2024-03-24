@@ -47,13 +47,9 @@ The documentation is split into 4 sections:
     .. grid-item-card:: :material-regular:`menu_book;3em`
 
         .. toctree::
-            :caption: Reference
-            :maxdepth: 1
+            :maxdepth: 2
 
-	    developer/reference/standards
-            user/reference/migration_guide
-            user/reference/release_compatibility
-            ../genindex
+	    reference
 
         +++
 
