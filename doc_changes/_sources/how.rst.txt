@@ -7,5 +7,4 @@ Practical step-by-step guides for day-to-day dev tasks and experienced users.
     :maxdepth: 1
     :glob:
 
-    user/how-to/*
     how-to/*
