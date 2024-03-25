@@ -50,7 +50,7 @@ The documentation is split into 4 sections:
             :maxdepth: 2
 
 	    reference
-	    genindex
+
 
         +++
 
