@@ -64,3 +64,7 @@ PandABlocks-server      https://PandABlocks.github.io/PandABlocks-server
 PandABlocks-webcontrol  https://PandABlocks.github.io/PandABlocks-webcontrol
 PandABlocks-client      https://PandABlocks.github.io/PandABlocks-client
 ======================= =====================================================
+.. toctree::
+    :maxdepth: 1
+    user/index
+    developer/index
