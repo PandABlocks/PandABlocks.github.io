@@ -8,4 +8,4 @@ Practical step-by-step guides for day-to-day dev tasks and experienced users.
     :glob:
 
     user/reference/*
-    developer/reference/*
+    reference/*

@@ -70,4 +70,3 @@ PandABlocks-client      https://PandABlocks.github.io/PandABlocks-client
     :hidden:
 
     user/index
-    developer/index
