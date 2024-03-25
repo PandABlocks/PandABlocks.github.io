@@ -7,4 +7,4 @@ Explanations of how and why the library works.
     :maxdepth: 1
     :glob:
 
-    developer/explanations/*
+    explanations/*

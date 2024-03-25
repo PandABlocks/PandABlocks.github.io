@@ -8,4 +8,4 @@ Practical step-by-step guides for day-to-day dev tasks and experienced users.
     :glob:
 
     user/how-to/*
-    developer/how-to/*
+    how-to/*
