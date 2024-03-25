@@ -6,21 +6,55 @@
 How the documentation is structured
 -----------------------------------
 
-The documentation is split into 2 sections:
+The documentation is split into 4 sections:
 
 .. grid:: 2
+    :gutter: 4
 
-    .. grid-item-card:: :material-regular:`person;4em`
-        :link: user/index
-        :link-type: doc
+    .. grid-item-card:: :material-regular:`directions_walk;3em`
 
-        The User Guide contains documentation on how to install and use PandABlocks.github.io.
+        .. toctree::
+            :maxdepth: 2
+	    
+	    tutorial
 
-    .. grid-item-card:: :material-regular:`code;4em`
-        :link: developer/index
-        :link-type: doc
+        +++
 
-        The Developer Guide contains documentation on how to develop and contribute changes back to PandABlocks.github.io.
+        Tutorials for installation and typical usage. New users start here.
+
+    .. grid-item-card:: :material-regular:`task;3em`
+
+        .. toctree::
+            :maxdepth: 2
+
+            how
+
+        +++
+
+        Practical step-by-step guides for day-to-day dev tasks and experienced users.
+
+    .. grid-item-card:: :material-regular:`info;3em`
+
+        .. toctree::
+            :maxdepth: 2
+	    
+	    explanations
+        
+        +++
+	
+	Explanations of how and why the architecture is the way it is.
+
+    .. grid-item-card:: :material-regular:`menu_book;3em`
+
+        .. toctree::
+            :maxdepth: 2
+
+	    reference
+
+
+        +++
+
+        Technical reference material including APIs and release notes.
 
 The Existing Documentation for the PandABlocks projects can be found:
 
@@ -32,8 +66,3 @@ PandABlocks-webcontrol  https://PandABlocks.github.io/PandABlocks-webcontrol
 PandABlocks-client      https://PandABlocks.github.io/PandABlocks-client
 ======================= =====================================================
 
-.. toctree::
-    :hidden:
-
-    user/index
-    developer/index
