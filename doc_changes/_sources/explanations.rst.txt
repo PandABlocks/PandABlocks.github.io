@@ -1,7 +1,7 @@
 Explanations
 =============
 
-Explanations of how the library works and why it works that way.
+Explanations of how and why the library works.
 
 .. toctree::
     :maxdepth: 1
