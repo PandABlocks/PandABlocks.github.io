@@ -4,21 +4,13 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-import os
 import sys
 from pathlib import Path
 from subprocess import check_output
-from pkg_resources import require
-
 
 import requests
 
 import PandABlocks
-
-require("sphinx_rtd_theme")
-require("matplotlib")
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, ROOT)
 
 # -- General configuration ------------------------------------------------
 
@@ -52,10 +44,6 @@ extensions = [
     "sphinx_copybutton",
     # For the card element
     "sphinx_design",
-    # Timing plots
-    'matplotlib.sphinxext.plot_directive',
-    'common.python.sphinx_timing_directive',
-
 ]
 
 # If true, Sphinx will warn about all references where the target cannot
@@ -186,7 +174,6 @@ html_theme_options = dict(
             url=f"https://github.com/{github_user}/{github_repo}/releases",
         )
     ],
-    navigation_with_keys=True,
 )
 
 # A dictionary of values to pass into the template engine’s context for all pages
