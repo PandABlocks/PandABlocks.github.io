@@ -42,7 +42,7 @@ The documentation is split into 4 sections:
         
         +++
 	
-	Explanations of how and why the architecture is why it is.
+	Explanations of how and why the architecture is the way it is.
 
     .. grid-item-card:: :material-regular:`menu_book;3em`
 
