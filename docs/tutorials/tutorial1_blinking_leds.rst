@@ -28,7 +28,7 @@ design if you wish to keep it.
 Select "template_tutorial1_leds" from the box and the settings and wiring of
 the Blocks in the PandA will be changed to the following:
 
-.. image:: ../../images/tutorial1_layout.png
+.. image:: ../images/tutorial1_layout.png
 
 If you now look at the front panel of the PandA you should see the first 4
 TTL output LEDs turn on sequentially, then turn off in the opposite order.
@@ -44,7 +44,7 @@ delay line, queuing a series of pulses up to be sent out when the delay expires.
 
 If you click on one of them you can see its settings:
 
-.. image:: ../../images/tutorial1_pulse.png
+.. image:: ../images/tutorial1_pulse.png
 
 If you increase the delay beyond the 1s period you will notice that the
 ``Queued`` field will increase, but the PULSE Block will still continue
@@ -68,7 +68,7 @@ values that can propagate through the system by connecting Blocks together.
 These outputs can be viewed on their respective Blocks by clicking them on the
 design, or all together by clicking the Bits field in the left hand pane:
 
-.. image:: ../../images/tutorial1_bits.png
+.. image:: ../images/tutorial1_bits.png
 
 If you scroll down to the section with the Pulse blocks you will see the
 same pattern of flashing lights as on the front of the PandA

@@ -14,7 +14,7 @@ Loading the tutorial design
 Select "template_tutorial2_pcap" from the Design dropdown box and the settings
 and wiring of the Blocks in the PandA will be changed to the following:
 
-.. image:: ../../images/tutorial2_layout.png
+.. image:: ../images/tutorial2_layout.png
 
 
 How the design works
@@ -63,7 +63,7 @@ There are also a handful of other fields like the start of frame, end of frame
 and trigger time that can be captured by setting fields on the PCAP Block. If
 you click on the PCAP Block you will see them in the Outputs section:
 
-.. image:: ../../images/tutorial2_pcap.png
+.. image:: ../images/tutorial2_pcap.png
 
 In the inputs section of the PCAP Block we can see that we have set a delay of
 1 for both the Trig and Gate. Delays on bit inputs are in FPGA clock ticks, and
@@ -81,7 +81,7 @@ COUNTER1 value *after* the corresponding CLOCK rising edge.
 We can set COUNTER1.OUT to capture the Value at trigger by modifying the
 Positions table and pressing Submit:
 
-.. image:: ../../images/tutorial2_positions.png
+.. image:: ../images/tutorial2_positions.png
 
 Now we can get a client ready to receive data. We can capture data in ASCII or
 Binary format as detailed in the TCP server documentation, and TANGO and EPICS
