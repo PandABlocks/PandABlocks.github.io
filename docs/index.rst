@@ -65,8 +65,3 @@ PandABlocks-webcontrol  https://PandABlocks.github.io/PandABlocks-webcontrol
 PandABlocks-client      https://PandABlocks.github.io/PandABlocks-client
 ======================= =====================================================
 
-
-.. toctree::
-    :hidden:
-
-    user/index
