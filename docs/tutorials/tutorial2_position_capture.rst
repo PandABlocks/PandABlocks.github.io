@@ -36,7 +36,7 @@ COUNTER will increment by one, followed by a PCAP trigger half a second later.
 This is best viewed as a timing diagram:
 
 .. timing_plot::
-   :path: docs/user/tutorials/tutorial2.timing.ini
+   :path: docs/tutorials/tutorial2.timing.ini
    :section: Trigger Only
    :xlabel: Milliseconds
 
@@ -134,7 +134,7 @@ If we look at the timing plot, we can see this also matched what we expect, the
 value is captured mid way through each increment of 5:
 
 .. timing_plot::
-   :path: docs/user/tutorials/tutorial2.timing.ini
+   :path: docs/tutorials/tutorial2.timing.ini
    :section: Trigger Counter 5x faster
    :xlabel: Milliseconds
 
