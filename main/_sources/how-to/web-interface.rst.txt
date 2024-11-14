@@ -34,7 +34,7 @@ your new version of the rootfs.
 
 .. note::
     If you are installing a major upgrade to the rootfs, it is recommended to 
-    uninstall all the installed zpkgs before upgrading the rootfs. For PandA v3.1 an
+    uninstall all the installed zpkgs before upgrading the rootfs. From PandA v4.0 an
     option is available to do this as part of the rootfs install.
 
 You can power cycle the box and it will install the new rootfs.
