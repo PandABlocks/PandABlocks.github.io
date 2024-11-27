@@ -8,7 +8,7 @@ interface. To do this you will need physical access to the PandA and a USB memor
 stick with the new firmware copied onto it. You can find the latest firmware from
 GitHub_.
 
-Information about updating a PandA by SSH can be found in the _ssh_doc.
+Information about updating a PandA by SSH can be found in the :ref:`ssh_doc`.
 
 The Web Interface of a PandA is accessible by typing its ip address or hostname into
 a browser.
