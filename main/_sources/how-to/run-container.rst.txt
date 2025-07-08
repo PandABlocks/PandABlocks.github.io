@@ -26,7 +26,7 @@ The above directories will be mounted as volumes to the container as it is run w
 
 .. code-block:: bash
 
-    docker run --rm -it -v REPO_DIR:/repos:Z -v BUILD_DIR:/build:Z -v VIVADO_DIR:/scratch/Xilinx ghcr.io/pandablocks/pandablocks-dev-container /bin/bash
+    docker run --rm --net=host -it -v REPO_DIR:/repos:Z -v BUILD_DIR:/build:Z -v VIVADO_DIR:/scratch/Xilinx ghcr.io/pandablocks/pandablocks-dev-container /bin/bash
 
 The ``/repos``, ``/build``, and ``/scratch/Xilinx`` paths describe the container directories at which the mounts occur. 
 
