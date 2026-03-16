@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>API Index &#8212; PandABlocks.github.io 4.2.dev1+g311562682 documentation</title>
+    <title>Test the finedelay &#8212; PandABlocks.github.io 4.2.dev1+g311562682 documentation</title>
   
   
   
@@ -48,7 +48,7 @@
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=30646c52"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/genindex';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'how-to/finedelay-test';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://PandABlocks.github.io/PandABlocks.github.io/switcher.json';
@@ -59,8 +59,8 @@
     <link rel="icon" href="../_static/PandA-logo.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Migration Guide" href="migration_guide.html" />
-    <link rel="prev" title="References" href="../reference.html" />
+    <link rel="next" title="Make a release" href="make-release.html" />
+    <link rel="prev" title="Contributing to the project" href="contribute.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="main" />
@@ -152,7 +152,7 @@
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../how.html">
     How-to Guides
   </a>
@@ -166,7 +166,7 @@
 </li>
 
 
-<li class="nav-item current active">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../reference.html">
     References
   </a>
@@ -307,7 +307,7 @@
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../how.html">
     How-to Guides
   </a>
@@ -321,7 +321,7 @@
 </li>
 
 
-<li class="nav-item current active">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../reference.html">
     References
   </a>
@@ -410,11 +410,13 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">API Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="migration_guide.html">Migration Guide</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="release_compatibility.html">Release Compatibility table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standards.html">Standards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to the project</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Test the finedelay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="make-release.html">Make a release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote.html">Updating a PandA via SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run-container.html">Run in a container</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-tools.html">Update the tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-interface.html">Updating a PandA via web interface</a></li>
 </ul>
 </div>
 </nav></div>
@@ -456,9 +458,9 @@
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="../reference.html" class="nav-link">References</a></li>
+    <li class="breadcrumb-item"><a href="../how.html" class="nav-link">How-to Guides</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">API Index</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Test the finedelay</span></li>
   </ul>
 </nav>
 </div>
@@ -475,8 +477,32 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="api-index">
-<h1>API Index<a class="headerlink" href="#api-index" title="Link to this heading">#</a></h1>
+  <section id="test-the-finedelay">
+<h1>Test the finedelay<a class="headerlink" href="#test-the-finedelay" title="Link to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p>Plug two LVDSOUT pins to an oscilloscope and use rising edge of LVDSOUT1
+as trigger.</p></li>
+<li><p>Enable CLOCK1, set its period to the minimum(0.016us) and use it as input for
+LVDSOUT1 and LVDSOUT2.</p></li>
+</ol>
+<img alt="../_images/finedelay_test_layout.png" src="../_images/finedelay_test_layout.png" />
+<ol class="arabic simple" start="3">
+<li><p>Set oct delay and fine delay to 0 in both LVDSOUTs.</p></li>
+<li><p>For LVDSOUT2, set oct delay from 1 to 7 and verify in the oscilloscope that
+you get delays from 1ns to 7ns respectively, then set oct delay back to 0.</p></li>
+<li><p>Read initial one ns of LVDSOUT2 and use it as a reference to test fine delay.</p></li>
+</ol>
+<blockquote>
+<div><p>5.1 Set fine delay to half of initial one ns and verify in the oscilloscope
+that the delay is around 500ps.</p>
+<p>5.2 Set fine delay to a quarter of initial one ns and verify in the
+oscilloscope that the delay is around 250ps.</p>
+<p>5.3 …. Repeat halving until you reach the limit of your oscilloscope …</p>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Run a <a class="reference external" href="https://raw.githubusercontent.com/PandABlocks/PandABlocks.github.io/refs/heads/main/scripts/finedelay-sweep.py">script</a> that sweeps all fine delay values for each oct delay value and
+observe how LVDSOUT2 gets delayed very smoothly.</p></li>
+</ol>
 </section>
 
 
@@ -490,20 +516,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../reference.html"
+       href="contribute.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">References</p>
+        <p class="prev-next-title">Contributing to the project</p>
       </div>
     </a>
     <a class="right-next"
-       href="migration_guide.html"
+       href="make-release.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Migration Guide</p>
+        <p class="prev-next-title">Make a release</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -522,7 +548,7 @@
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/PandABlocks/PandABlocks.github.io/edit/main/docs/reference/genindex.rst">
+    <a href="https://github.com/PandABlocks/PandABlocks.github.io/edit/main/docs/how-to/finedelay-test.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -538,7 +564,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/reference/genindex.rst.txt"
+      <li><a href="../_sources/how-to/finedelay-test.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>
