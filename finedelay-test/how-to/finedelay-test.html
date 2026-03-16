@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Test the finedelay &#8212; PandABlocks.github.io 4.2.dev1+g1eda0f31a documentation</title>
+    <title>Test the finedelay &#8212; PandABlocks.github.io 4.2.dev1+g8df2ffb9b documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=e865d7ff"></script>
+    <script src="../_static/documentation_options.js?v=e2c5e73d"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -487,21 +487,20 @@ LVDSOUT1 and LVDSOUT2.</p></li>
 </ol>
 <img alt="../_images/finedelay_test_layout.png" src="../_images/finedelay_test_layout.png" />
 <ol class="arabic simple" start="3">
-<li><p>Set oct delay and fine delay to 0 in both LVDSOUTs</p></li>
+<li><p>Set oct delay and fine delay to 0 in both LVDSOUTs.</p></li>
 <li><p>For LVDSOUT2, set oct delay from 1 to 7 and verify in the oscilloscope that
 you get delays from 1ns to 7ns respectively, then set oct delay back to 0.</p></li>
-<li><p>Read initial one ns of LVDSOUT2 and use it as a reference to test the fine
-delay</p></li>
+<li><p>Read initial one ns of LVDSOUT2 and use it as a reference to test fine delay.</p></li>
 </ol>
 <blockquote>
 <div><p>5.1 Set fine delay to half of initial one ns and verify in the oscilloscope
-that the delay is around 500ps</p>
+that the delay is around 500ps.</p>
 <p>5.2 Set fine delay to a quarter of initial one ns and verify in the
 oscilloscope that the delay is around 250ps.</p>
-<p>5.3 …. repeat halving until you reach the limit of your oscilloscope …</p>
+<p>5.3 …. Repeat halving until you reach the limit of your oscilloscope …</p>
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Run a <a class="reference external" href="../scripts/finedelay-sweep.py">script</a> that sweeps all fine delay values for each oct delay value and
+<li><p>Run a <a class="reference external" href="https://raw.githubusercontent.com/PandABlocks/PandABlocks.github.io/refs/heads/main/scripts/finedelay-sweep.py">script</a> that sweeps all fine delay values for each oct delay value and
 observe how LVDSOUT2 gets delayed very smoothly.</p></li>
 </ol>
 </section>
