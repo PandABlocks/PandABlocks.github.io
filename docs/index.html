@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PandABlocks — Open-source FPGA firmware for position &amp; acquisition</title>
+<meta name="description" content="PandABlocks is the open-source firmware and software stack behind PandABox. Wire FPGA functional blocks together at runtime to build triggering and position-capture logic." />
+
+<!-- Favicon uses the same panda mark -->
+<link rel="icon" type="image/svg+xml" href="PandA-logo-for-black-background.svg" />
+
+<!-- ============================================================= -->
+<!-- FONTS  (display: Space Grotesk · body: IBM Plex Sans · data: IBM Plex Mono) -->
+<!-- ============================================================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* =================================================================
+   DESIGN TOKENS
+   Edit these to retheme the whole page.
+   ================================================================= */
+:root{
+  --void:        #0B0E12;   /* page background (cool near-black) */
+  --void-2:      #0D1116;
+  --panel:       #12181F;   /* card surface */
+  --panel-2:     #161E26;   /* lifted surface */
+  --line:        #212C35;   /* hairline borders */
+  --line-bright: #2F3D49;
+
+  --ink:         #E9EEF1;   /* primary text */
+  --ink-dim:     #97A4AF;   /* secondary text */
+  --ink-faint:   #5C6A75;   /* labels, captions */
+
+  --signal:      #FFB000;   /* amber — analog / armed / active (the one accent) */
+  --signal-2:    #FFC94D;
+  --logic:       #5FD6CC;   /* cool teal — digital, used sparingly */
+
+  --maxw: 1120px;
+  --pad:  clamp(20px, 5vw, 56px);
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body:    "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+}
+
+/* =================================================================
+   RESET / BASE
+   ================================================================= */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  background:var(--void);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+a{ color:inherit; text-decoration:none; }
+img,svg{ display:block; max-width:100%; }
+
+::selection{ background:var(--signal); color:#0B0E12; }
+
+:focus-visible{
+  outline:2px solid var(--signal);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.wrap{ max-width:var(--maxw); margin:0 auto; padding-inline:var(--pad); }
+
+/* shared eyebrow / mono label */
+.mono{ font-family:var(--font-mono); }
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  display:inline-flex;
+  align-items:center;
+  gap:.6em;
+}
+.eyebrow::before{
+  content:"";
+  width:1.6em; height:1px;
+  background:var(--signal);
+  flex:none;
+}
+
+/* =================================================================
+   TOP NAV
+   ================================================================= */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--void) 82%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav__inner{
+  display:flex; align-items:center; gap:24px;
+  height:64px;
+}
+.brand{ display:flex; align-items:center; gap:11px; flex:none; }
+.brand img{ height:30px; width:auto; }
+.brand__name{
+  font-family:var(--font-display);
+  font-weight:600; font-size:1.06rem; letter-spacing:-.01em;
+}
+.brand__name b{ color:var(--ink); font-weight:600; }
+.nav__links{ display:flex; gap:28px; margin-left:auto; align-items:center; }
+.nav__links a{
+  font-size:.9rem; color:var(--ink-dim);
+  transition:color .15s ease;
+}
+.nav__links a:hover{ color:var(--ink); }
+.nav__gh{
+  font-family:var(--font-mono); font-size:.8rem;
+  color:var(--ink) !important;
+  border:1px solid var(--line-bright);
+  padding:7px 13px; border-radius:6px;
+  display:inline-flex; align-items:center; gap:7px;
+  transition:border-color .15s ease, background .15s ease;
+}
+.nav__gh:hover{ border-color:var(--signal); background:var(--panel); }
+.nav__toggle{ display:none; }
+
+/* =================================================================
+   HERO
+   ================================================================= */
+.hero{
+  position:relative;
+  padding-top:clamp(56px, 9vw, 104px);
+  padding-bottom:clamp(40px, 6vw, 72px);
+  text-align:center;
+  overflow:hidden;
+}
+/* faint oscilloscope graticule grid + vignette */
+.hero__grid{
+  position:absolute; inset:-2px;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:44px 44px;
+  opacity:.28;
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 18%, #000 0%, transparent 72%);
+          mask-image:radial-gradient(120% 90% at 50% 18%, #000 0%, transparent 72%);
+  pointer-events:none;
+}
+.hero__glow{
+  position:absolute; left:50%; top:-180px; translate:-50% 0;
+  width:760px; height:520px;
+  background:radial-gradient(50% 50% at 50% 50%, color-mix(in srgb,var(--signal) 16%, transparent), transparent 70%);
+  filter:blur(20px); opacity:.6; pointer-events:none;
+}
+.hero__inner{ position:relative; z-index:1; }
+
+.hero__mark{ width:96px; height:auto; margin:0 auto 26px; }
+
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(2.5rem, 6.4vw, 4.6rem);
+  line-height:1.02;
+  letter-spacing:-.025em;
+  margin:18px auto 0;
+  max-width:14ch;
+}
+.hero h1 .accent{ color:var(--signal); }
+.hero__sub{
+  margin:22px auto 0;
+  max-width:58ch;
+  font-size:clamp(1.02rem, 1.6vw, 1.18rem);
+  color:var(--ink-dim);
+}
+.hero__sub b{ color:var(--ink); font-weight:500; }
+
+.hero__cta{
+  margin-top:34px;
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+}
+.btn{
+  font-family:var(--font-mono); font-size:.9rem;
+  display:inline-flex; align-items:center; gap:9px;
+  padding:12px 20px; border-radius:8px;
+  border:1px solid transparent;
+  transition:transform .12s ease, background .15s ease, border-color .15s ease;
+}
+.btn:active{ transform:translateY(1px); }
+.btn--primary{ background:var(--signal); color:#0B0E12; font-weight:500; }
+.btn--primary:hover{ background:var(--signal-2); }
+.btn--ghost{ border-color:var(--line-bright); color:var(--ink); }
+.btn--ghost:hover{ border-color:var(--ink-dim); background:var(--panel); }
+.btn svg{ width:15px; height:15px; }
+
+/* ---------- SIGNATURE: the runtime signal chain ---------- */
+.chain{
+  margin:clamp(40px,6vw,68px) auto 0;
+  max-width:960px;
+  position:relative;
+}
+.chain__frame{
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb,var(--panel) 60%, transparent), color-mix(in srgb,var(--void) 70%, transparent));
+  padding:18px 20px 14px;
+}
+.chain__head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:6px;
+}
+.chain__head span{
+  font-family:var(--font-mono); font-size:.7rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);
+}
+.chain__dot{
+  display:inline-flex; align-items:center; gap:7px;
+}
+.chain__dot i{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--signal);
+  box-shadow:0 0 0 0 color-mix(in srgb,var(--signal) 60%,transparent);
+  animation:pulse-led 2.4s ease-out infinite;
+}
+@keyframes pulse-led{
+  0%{ box-shadow:0 0 0 0 color-mix(in srgb,var(--signal) 55%,transparent); }
+  70%,100%{ box-shadow:0 0 0 9px transparent; }
+}
+.chain svg{ width:100%; height:auto; }
+
+/* signal chain animation */
+.trace-analog{ fill:none; stroke:var(--signal); stroke-width:2; opacity:.92; }
+.trace-digital{ fill:none; stroke:var(--logic); stroke-width:2; opacity:.92; }
+.wire{ fill:none; stroke:var(--line-bright); stroke-width:1.5; }
+.node-box{ fill:var(--panel-2); stroke:var(--line-bright); stroke-width:1.5; }
+.node-label{ font-family:var(--font-mono); font-size:12px; fill:var(--ink); letter-spacing:.04em; }
+.bus-label{ font-family:var(--font-mono); font-size:10px; fill:var(--ink-faint); letter-spacing:.08em; }
+.port-label{ font-family:var(--font-mono); font-size:9.5px; fill:var(--ink-dim); letter-spacing:.02em; }
+.port{ stroke:var(--void); stroke-width:1.5; }
+.port-pos{ fill:var(--signal); }
+.port-bit{ fill:var(--logic); }
+.pulse{ fill:var(--signal); filter:drop-shadow(0 0 5px var(--signal)); }
+.pulse-d{ fill:var(--logic); filter:drop-shadow(0 0 5px var(--logic)); }
+
+/* a position pulse runs INENC→PCOMP, then a bit pulse runs PCOMP→PCAP */
+@keyframes run-pos{
+  0%{ transform:translateX(160px); opacity:0; }
+  8%{ opacity:1; }
+  42%{ transform:translateX(395px); opacity:1; }
+  50%,100%{ transform:translateX(395px); opacity:0; }
+}
+@keyframes run-bit{
+  0%,46%{ transform:translateX(525px); opacity:0; }
+  54%{ opacity:1; }
+  88%{ transform:translateX(760px); opacity:1; }
+  96%,100%{ transform:translateX(760px); opacity:0; }
+}
+.pulse-pos{ animation:run-pos 4s linear infinite; }
+.pulse-bit{ animation:run-bit 4s linear infinite; }
+
+@keyframes led-blink{ 0%,100%{ opacity:.3; } 50%{ opacity:1; } }
+.led{ fill:var(--signal); animation:led-blink 1.6s ease-in-out infinite; }
+
+/* =================================================================
+   SECTION CHROME
+   ================================================================= */
+.section{ padding-block:clamp(64px, 9vw, 116px); position:relative; }
+.section--alt{ background:var(--void-2); border-block:1px solid var(--line); }
+.section__head{ max-width:62ch; }
+.section__head h2{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(1.7rem, 3.4vw, 2.5rem);
+  letter-spacing:-.02em;
+  line-height:1.1;
+  margin-top:16px;
+}
+.section__head p{ margin-top:16px; color:var(--ink-dim); font-size:1.06rem; }
+
+/* waveform divider (echo of the logo) */
+.rule{ width:100%; height:34px; margin:0 auto; display:block; color:var(--line-bright); }
+
+/* ---------- IDEA / runtime rewiring ---------- */
+.idea{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(32px,5vw,72px); align-items:start; }
+.idea__copy p{ margin-top:18px; color:var(--ink-dim); }
+.idea__title{
+  font-family:var(--font-display); font-weight:600;
+  font-size:clamp(1.7rem, 3.4vw, 2.5rem);
+  letter-spacing:-.02em; line-height:1.1; margin-top:16px;
+}
+.idea__copy p b{ color:var(--ink); font-weight:500; }
+.idea__copy .lede{ font-size:1.12rem; color:var(--ink); }
+
+.facts{ display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.fact{ background:var(--panel); padding:20px 22px; display:flex; gap:18px; align-items:baseline; }
+.fact__k{ font-family:var(--font-mono); font-size:1.5rem; color:var(--signal); font-weight:500; flex:none; min-width:3.2ch; }
+.fact__v{ font-size:.96rem; color:var(--ink-dim); }
+.fact__v b{ color:var(--ink); font-weight:600; display:block; font-family:var(--font-body); margin-bottom:2px; }
+
+/* ---------- ECOSYSTEM ---------- */
+.repo{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:var(--panel);
+  padding:26px 26px 24px;
+  display:flex; flex-direction:column;
+  transition:border-color .18s ease, transform .18s ease, background .18s ease;
+}
+.repo:hover{ border-color:var(--signal); transform:translateY(-3px); background:var(--panel-2); }
+.repo--wide{ grid-column:1 / -1; }
+.repo__top{ display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:14px; }
+.repo__layer{
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-faint);
+  border:1px solid var(--line-bright); border-radius:5px; padding:4px 9px;
+}
+.repo__arrow{ color:var(--ink-faint); transition:color .18s ease, transform .18s ease; flex:none; }
+.repo:hover .repo__arrow{ color:var(--signal); transform:translate(3px,-3px); }
+.repo h3{
+  font-family:var(--font-mono); font-weight:500;
+  font-size:1.14rem; letter-spacing:-.01em; color:var(--ink);
+}
+.repo__role{ color:var(--signal); font-size:.82rem; font-family:var(--font-mono); margin-top:3px; }
+.repo p{ color:var(--ink-dim); font-size:.96rem; margin-top:13px; }
+.repo--wide p{ max-width:62ch; }
+
+/* the firmware-image group: meta-panda assembled from FPGA + server */
+.group{
+  margin-top:44px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+  background:linear-gradient(180deg, color-mix(in srgb,var(--panel) 34%, transparent), transparent 70%);
+}
+.group__label{
+  display:flex; align-items:center; gap:9px;
+  font-family:var(--font-mono); font-size:.7rem; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--ink-faint);
+  padding:8px 8px 16px;
+}
+.group__label b{ color:var(--signal); font-weight:500; }
+.group__dot{ width:7px; height:7px; border-radius:2px; background:var(--signal); flex:none; }
+.group__from{
+  display:flex; align-items:center; gap:14px;
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-faint);
+  padding:14px 6px 12px;
+}
+.group__from::before, .group__from::after{ content:""; height:1px; background:var(--line); flex:1; }
+.group__parts{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+/* standalone tools: full-width rows, stacked and spaced so each reads alone */
+.repo--row{
+  flex-direction:row; align-items:center; gap:30px;
+  padding:24px 28px;
+  margin-top:16px;
+}
+.repo--row .row__main{ flex:none; width:248px; }
+.repo--row .row__main h3{ margin-top:2px; }
+.repo--row .row__desc{ flex:1; margin-top:0; }
+.repo--row .repo__arrow{ flex:none; }
+.chip{
+  display:inline-block; margin-bottom:11px;
+  font-family:var(--font-mono); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--logic);
+  border:1px solid color-mix(in srgb,var(--logic) 38%, var(--line)); border-radius:5px; padding:3px 9px;
+}
+
+/* ---------- HARDWARE ---------- */
+.hw{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:48px; }
+.card{
+  border:1px solid var(--line); border-radius:13px; background:var(--panel);
+  padding:26px; display:flex; flex-direction:column; gap:12px;
+}
+.card__tag{
+  align-self:flex-start;
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
+  padding:4px 9px; border-radius:5px;
+}
+.tag--live{ color:var(--logic); border:1px solid color-mix(in srgb,var(--logic) 40%, var(--line)); }
+.tag--next{ color:var(--signal); border:1px solid color-mix(in srgb,var(--signal) 40%, var(--line)); }
+.tag--port{ color:var(--ink-dim); border:1px solid var(--line-bright); }
+.card h3{ font-family:var(--font-display); font-weight:600; font-size:1.28rem; letter-spacing:-.01em; }
+.card p{ color:var(--ink-dim); font-size:.95rem; }
+.card .spec{ font-family:var(--font-mono); font-size:.78rem; color:var(--ink-faint); margin-top:auto; padding-top:6px; }
+
+/* =================================================================
+   FOOTER
+   ================================================================= */
+.foot{ border-top:1px solid var(--line); padding-block:54px 40px; }
+.foot__grid{ display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:40px; }
+.foot__brand .brand{ margin-bottom:14px; }
+.foot__brand p{ color:var(--ink-faint); font-size:.9rem; max-width:34ch; }
+.foot__col h4{
+  font-family:var(--font-mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:14px;
+}
+.foot__col a{ display:block; color:var(--ink-dim); font-size:.92rem; padding:5px 0; transition:color .15s ease; }
+.foot__col a:hover{ color:var(--signal); }
+.foot__bar{
+  margin-top:44px; padding-top:22px; border-top:1px solid var(--line);
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  font-family:var(--font-mono); font-size:.78rem; color:var(--ink-faint);
+}
+
+/* =================================================================
+   RESPONSIVE
+   ================================================================= */
+@media (max-width: 860px){
+  .nav__links{ display:none; }
+  .nav__gh{ margin-left:auto; }
+  .idea{ grid-template-columns:1fr; }
+  .group__parts{ grid-template-columns:1fr; }
+  .repo--row{ flex-direction:column; align-items:flex-start; gap:14px; }
+  .repo--row .row__main{ width:auto; }
+  .repo--row .repo__arrow{ position:absolute; top:24px; right:24px; }
+  .hw{ grid-template-columns:1fr; }
+  .foot__grid{ grid-template-columns:1fr 1fr; }
+  .foot__brand{ grid-column:1 / -1; }
+}
+@media (max-width: 520px){
+  .foot__grid{ grid-template-columns:1fr; }
+  .hero__cta .btn{ flex:1 1 auto; justify-content:center; }
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="#top" aria-label="PandABlocks home">
+      <img src="PandA-logo-for-black-background.svg" alt="PandABlocks panda logo" />
+      <span class="brand__name"><b>PandA</b>Blocks</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#idea">What it is</a>
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#hardware">Hardware</a>
+    </nav>
+    <!-- EDIT: main GitHub org link -->
+    <a class="nav__gh" href="https://github.com/PandABlocks" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="wrap hero__inner">
+    <img class="hero__mark" src="PandA-logo-for-black-background.svg" alt="" aria-hidden="true" />
+    <span class="eyebrow">Open-source FPGA firmware · Position &amp; Acquisition</span>
+    <h1>Rewire the FPGA <span class="accent">while it runs.</span></h1>
+    <p class="hero__sub">
+      PandABlocks is the open-source firmware and software stack behind <b>PandABox</b>.
+      Wire FPGA functional blocks together at runtime to build triggering and
+      position-capture logic — <b>no rebuild, no recompile.</b>
+    </p>
+    <div class="hero__cta">
+      <!-- EDIT: primary docs link (meta-panda — the firmware image + docs) -->
+      <a class="btn btn--primary" href="https://github.com/PandABlocks/meta-panda" target="_blank" rel="noopener">
+        Read the docs
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8h8M8 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <!-- ===== SIGNATURE: runtime signal chain ===== -->
+    <div class="chain" aria-hidden="true">
+      <div class="chain__frame">
+        <div class="chain__head">
+          <span>live wiring</span>
+          <span class="chain__dot"><i></i>armed</span>
+        </div>
+        <svg viewBox="0 0 940 220" role="img">
+          <!-- bus labels over each connecting wire -->
+          <text class="bus-label" x="277" y="68" text-anchor="middle">pos_bus</text>
+          <text class="bus-label" x="642" y="68" text-anchor="middle">bit_bus</text>
+
+          <!-- WIRE 1  INENC.val -> PCOMP.inp : a position, drawn as an analog (sine) trace -->
+          <path class="trace-analog" d="M160,110 C190,86 220,134 250,110 C280,86 310,134 340,110 C362,96 382,124 395,110"/>
+          <!-- WIRE 2  PCOMP.out -> PCAP.trig : a pulse train, drawn as a digital (square) trace -->
+          <path class="trace-digital" d="M525,110 H560 V88 H600 V132 H640 V88 H680 V132 H720 V110 H760"/>
+          <!-- PCAP capture output -->
+          <path class="wire" d="M890,110 H922"/>
+          <path class="wire" d="M916,104 L924,110 L916,116"/>
+          <text class="bus-label" x="905" y="98" text-anchor="middle">data</text>
+
+          <!-- BLOCK: INENC (incremental encoder input) -->
+          <g>
+            <rect class="node-box" x="30" y="74" width="130" height="72" rx="9"/>
+            <text class="node-label" x="95" y="100" text-anchor="middle">INENC</text>
+            <text class="port-label" x="146" y="115" text-anchor="end">val</text>
+            <text class="bus-label" x="95" y="134" text-anchor="middle">encoder in</text>
+            <circle class="port port-pos" cx="160" cy="110" r="4.5"/>
+          </g>
+          <!-- BLOCK: PCOMP (position compare) -->
+          <g>
+            <rect class="node-box" x="395" y="74" width="130" height="72" rx="9"/>
+            <text class="node-label" x="460" y="100" text-anchor="middle">PCOMP</text>
+            <text class="port-label" x="402" y="115" text-anchor="start">inp</text>
+            <text class="port-label" x="518" y="115" text-anchor="end">out</text>
+            <text class="bus-label" x="460" y="134" text-anchor="middle">position compare</text>
+            <circle class="port port-pos" cx="395" cy="110" r="4.5"/>
+            <circle class="port port-bit" cx="525" cy="110" r="4.5"/>
+          </g>
+          <!-- BLOCK: PCAP (position capture) -->
+          <g>
+            <rect class="node-box" x="760" y="74" width="130" height="72" rx="9"/>
+            <text class="node-label" x="825" y="100" text-anchor="middle">PCAP</text>
+            <text class="port-label" x="767" y="115" text-anchor="start">trig</text>
+            <text class="bus-label" x="825" y="134" text-anchor="middle">position capture</text>
+            <circle class="port port-bit" cx="760" cy="110" r="4.5"/>
+            <circle class="led" cx="876" cy="88" r="3.5"/>
+          </g>
+
+          <!-- travelling pulses: position flows in, trigger pulse flows out -->
+          <circle class="pulse pulse-pos" cx="0" cy="110" r="4"/>
+          <circle class="pulse-d pulse-bit" cx="0" cy="110" r="4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IDEA / RUNTIME REWIRING ================= -->
+<section class="section section--alt" id="idea">
+  <div class="wrap">
+    <div class="idea">
+      <div class="idea__copy">
+        <span class="eyebrow">The idea</span>
+        <h2 class="idea__title">
+          One firmware. Logic you wire like a patchbay.
+        </h2>
+        <p class="lede">
+          A PandABlocks build ships dozens of FPGA functional blocks — clocks, counters,
+          encoders, lookup tables, position capture. They sit on two shared buses,
+          ready to connect.
+        </p>
+        <p>
+          You wire outputs to inputs over a simple TCP connection — from the web GUI,
+          a script, or your control system. The signal path changes the instant you
+          write it. <b>The same firmware becomes a pulse generator, a position compare,
+          a multi-axis trigger fan-out</b> — whatever the experiment needs that day.
+        </p>
+        <p>
+          Because nothing is hard-wired, one image covers many applications, and a new
+          FMC card just adds blocks — no rebuild of the server, client, or control layer.
+        </p>
+      </div>
+      <div class="facts" role="list">
+        <div class="fact" role="listitem">
+          <span class="fact__k">∿→⊓</span>
+          <span class="fact__v"><b>Two buses</b>pos_bus carries position values, bit_bus carries digital signals. Every block taps both.</span>
+        </div>
+        <div class="fact" role="listitem">
+          <span class="fact__k">0 s</span>
+          <span class="fact__v"><b>Rewire at runtime</b>Change the wiring over TCP and it takes effect immediately. No FPGA rebuild.</span>
+        </div>
+        <div class="fact" role="listitem">
+          <span class="fact__k">ns</span>
+          <span class="fact__v"><b>Hardware timing</b>Triggering and capture run in FPGA fabric — deterministic, jitter-free.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ECOSYSTEM ================= -->
+<section class="section" id="ecosystem">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="eyebrow">Ecosystem</span>
+      <h2>The image on the box — and the tools that talk to it.</h2>
+      <p>meta-panda builds the firmware image that boots on the PandA, assembled from the FPGA and server repositories. The Python client and the EPICS/Tango IOC are standalone — bring whichever one fits your setup.</p>
+    </div>
+
+    <!-- ===== GROUP: the firmware image (meta-panda, built from FPGA + server) ===== -->
+    <div class="group">
+      <div class="group__label"><span class="group__dot"></span>Runs on the box · <b>firmware image</b></div>
+
+      <!-- meta-panda — the deliverable image + docs -->
+      <a class="repo repo--wide" href="https://github.com/PandABlocks/meta-panda" target="_blank" rel="noopener">
+        <div class="repo__top">
+          <span class="repo__layer">Start here · Image &amp; docs</span>
+          <svg class="repo__arrow" width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
+        </div>
+        <h3>meta-panda</h3>
+        <span class="repo__role">Firmware image &amp; documentation</span>
+        <p>The deliverable. Builds the image that boots on the PandA — bundling the two repositories below — and carries the docs and position-capture tutorials. Start here.</p>
+      </a>
+
+      <div class="group__from">assembled from</div>
+
+      <div class="group__parts">
+        <!-- FPGA -->
+        <a class="repo" href="https://github.com/PandABlocks/PandABlocks-FPGA" target="_blank" rel="noopener">
+          <div class="repo__top">
+            <span class="repo__layer">FPGA</span>
+            <svg class="repo__arrow" width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
+          </div>
+          <h3>PandABlocks-FPGA</h3>
+          <span class="repo__role">Firmware &amp; functional blocks</span>
+          <p>The VHDL functional blocks, their simulations and test sequences — compiled into the image.</p>
+        </a>
+        <!-- SERVER -->
+        <a class="repo" href="https://github.com/PandABlocks/PandABlocks-server" target="_blank" rel="noopener">
+          <div class="repo__top">
+            <span class="repo__layer">Server</span>
+            <svg class="repo__arrow" width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
+          </div>
+          <h3>PandABlocks-server</h3>
+          <span class="repo__role">TCP control interface</span>
+          <p>The ARM-side server that exposes block wiring and data capture over TCP. Runs inside the image.</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== STANDALONE TOOLS — each independent, kept apart ===== -->
+    <!-- CLIENT -->
+    <a class="repo repo--row" href="https://github.com/PandABlocks/PandABlocks-client" target="_blank" rel="noopener">
+      <div class="row__main">
+        <span class="chip">Standalone</span>
+        <h3>PandABlocks-client</h3>
+        <span class="repo__role">Python client library</span>
+      </div>
+      <p class="row__desc">Talk to any PandA over TCP from your own Python — set fields, change wiring, and stream position-capture data into your scripts.</p>
+      <svg class="repo__arrow" width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
+    </a>
+
+    <!-- INTEGRATION (separate from the client) -->
+    <a class="repo repo--row" href="https://github.com/PandABlocks/fastcs-PandABlocks" target="_blank" rel="noopener">
+      <div class="row__main">
+        <span class="chip">Standalone</span>
+        <h3>fastcs-PandABlocks</h3>
+        <span class="repo__role">EPICS &amp; Tango interface</span>
+      </div>
+      <p class="row__desc">A FastCS soft IOC that drops a PandA straight into an EPICS or Tango control system — every block exposed as control points.</p>
+      <svg class="repo__arrow" width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
+    </a>
+
+  </div>
+</section>
+
+<!-- waveform divider — the logo motif as a section rule -->
+<svg class="rule wrap" viewBox="0 0 1120 34" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0,17 C60,-6 100,40 160,17 C220,-6 260,40 320,17 C380,-6 420,40 480,17 H560
+           V6 H600 V28 H660 V6 H720 V28 H780 V6 H840 V28 H900 V17 H1120"
+        fill="none" stroke="currentColor" stroke-width="1.5" opacity=".6"/>
+</svg>
+
+<!-- ================= HARDWARE ================= -->
+<section class="section section--alt" id="hardware">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="eyebrow">Hardware</span>
+      <h2>Built for PandABox. Portable beyond it.</h2>
+      <p>The same firmware and software stack runs across a growing family of Zynq-based platforms.</p>
+    </div>
+
+    <!-- EDIT hardware cards below -->
+    <div class="hw">
+      <div class="card">
+        <span class="card__tag tag--live">Shipping now</span>
+        <h3>PandABox</h3>
+        <p>The original platform from Diamond Light Source and Synchrotron Soleil. Zynq-7000 SoC, FMC expansion, encoder I/O and SFP links for multi-box sync.</p>
+        <span class="spec">Zynq-7000 · FMC · SFP</span>
+      </div>
+      <div class="card">
+        <span class="card__tag tag--next">Upcoming</span>
+        <h3>PandABox II</h3>
+        <p>The next-generation platform — more I/O and more FPGA headroom, running the same runtime-rewirable PandABlocks firmware you already know.</p>
+        <span class="spec">Next generation</span>
+      </div>
+      <div class="card">
+        <span class="card__tag tag--port">Portable</span>
+        <h3>Faraday Motion PowerBrick</h3>
+        <p>PandABlocks also targets the Faraday Motion PowerBrick FPGA, bringing the same block-wiring model to a motion-control form factor.</p>
+        <span class="spec">PowerBrick FPGA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__brand">
+        <a class="brand" href="#top">
+          <img src="PandA-logo-for-black-background.svg" alt="" aria-hidden="true" />
+          <span class="brand__name"><b>PandA</b>Blocks</span>
+        </a>
+        <p>Open-source firmware and software for position and acquisition. Developed by Diamond Light Source and Synchrotron Soleil.</p>
+      </div>
+      <div class="foot__col">
+        <h4>Repositories</h4>
+        <a href="https://github.com/PandABlocks/meta-panda" target="_blank" rel="noopener">meta-panda · docs</a>
+        <a href="https://github.com/PandABlocks/PandABlocks-FPGA" target="_blank" rel="noopener">PandABlocks-FPGA</a>
+        <a href="https://github.com/PandABlocks/PandABlocks-server" target="_blank" rel="noopener">PandABlocks-server</a>
+        <a href="https://github.com/PandABlocks/PandABlocks-client" target="_blank" rel="noopener">PandABlocks-client</a>
+        <a href="https://github.com/PandABlocks/fastcs-PandABlocks" target="_blank" rel="noopener">fastcs-PandABlocks</a>
+      </div>
+      <div class="foot__col">
+        <h4>Project</h4>
+        <a href="https://github.com/PandABlocks" target="_blank" rel="noopener">GitHub organisation</a>
+        <a href="#idea">What it is</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <a href="#hardware">Hardware</a>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>PandABlocks — open source</span>
+      <span>∿ → ⊓⊔  position &amp; acquisition</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
