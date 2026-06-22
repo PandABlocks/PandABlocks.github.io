@@ -1,0 +1,98 @@
+<svg viewBox="0 0 940 220" xmlns="http://www.w3.org/2000/svg">
+
+  <style>
+    /* colors (resolved from CSS variables) */
+    .trace-analog { fill:none; stroke:#FFB000; stroke-width:2; opacity:.92; }
+    .trace-digital { fill:none; stroke:#5FD6CC; stroke-width:2; opacity:.92; }
+    .wire { fill:none; stroke:#2F3D49; stroke-width:1.5; }
+    .node-box { fill:#161E26; stroke:#2F3D49; stroke-width:1.5; }
+
+    .node-label { font-family:monospace; font-size:12px; fill:#E9EEF1; }
+    .bus-label { font-family:monospace; font-size:10px; fill:#5C6A75; }
+    .port-label { font-family:monospace; font-size:9.5px; fill:#97A4AF; }
+
+    .port { stroke:#0B0E12; stroke-width:1.5; }
+    .port-pos { fill:#FFB000; }
+    .port-bit { fill:#5FD6CC; }
+
+    .pulse { fill:#FFB000; }
+    .pulse-d { fill:#5FD6CC; }
+
+    /* animations */
+    @keyframes run-pos {
+      0% { transform:translateX(160px); opacity:0; }
+      8% { opacity:1; }
+      42% { transform:translateX(395px); opacity:1; }
+      50%,100% { transform:translateX(395px); opacity:0; }
+    }
+
+    @keyframes run-bit {
+      0%,46% { transform:translateX(525px); opacity:0; }
+      54% { opacity:1; }
+      88% { transform:translateX(760px); opacity:1; }
+      96%,100% { transform:translateX(760px); opacity:0; }
+    }
+
+    .pulse-pos { animation:run-pos 4s linear infinite; }
+    .pulse-bit { animation:run-bit 4s linear infinite; }
+
+    @keyframes led-blink {
+      0%,100% { opacity:.3; }
+      50% { opacity:1; }
+    }
+
+    .led { fill:#FFB000; animation:led-blink 1.6s ease-in-out infinite; }
+  </style>
+
+  <!-- labels -->
+  <text class="bus-label" x="277" y="68" text-anchor="middle">pos_bus</text>
+  <text class="bus-label" x="642" y="68" text-anchor="middle">bit_bus</text>
+
+  <!-- analog path -->
+  <path class="trace-analog"
+        d="M160,110 C190,86 220,134 250,110 C280,86 310,134 340,110 C362,96 382,124 395,110"/>
+
+  <!-- digital path -->
+  <path class="trace-digital"
+        d="M525,110 H560 V88 H600 V132 H640 V88 H680 V132 H720 V110 H760"/>
+
+  <!-- output -->
+  <path class="wire" d="M890,110 H922"/>
+  <path class="wire" d="M916,104 L924,110 L916,116"/>
+  <text class="bus-label" x="905" y="98" text-anchor="middle">data</text>
+
+  <!-- INENC -->
+  <g>
+    <rect class="node-box" x="30" y="74" width="130" height="72" rx="9"/>
+    <text class="node-label" x="95" y="100" text-anchor="middle">INENC</text>
+    <text class="port-label" x="146" y="115" text-anchor="end">val</text>
+    <text class="bus-label" x="95" y="134" text-anchor="middle">encoder in</text>
+    <circle class="port port-pos" cx="160" cy="110" r="4.5"/>
+  </g>
+
+  <!-- PCOMP -->
+  <g>
+    <rect class="node-box" x="395" y="74" width="130" height="72" rx="9"/>
+    <text class="node-label" x="460" y="100" text-anchor="middle">PCOMP</text>
+    <text class="port-label" x="402" y="115" text-anchor="start">inp</text>
+    <text class="port-label" x="518" y="115" text-anchor="end">out</text>
+    <text class="bus-label" x="460" y="134" text-anchor="middle">position compare</text>
+    <circle class="port port-pos" cx="395" cy="110" r="4.5"/>
+    <circle class="port port-bit" cx="525" cy="110" r="4.5"/>
+  </g>
+
+  <!-- PCAP -->
+  <g>
+    <rect class="node-box" x="760" y="74" width="130" height="72" rx="9"/>
+    <text class="node-label" x="825" y="100" text-anchor="middle">PCAP</text>
+    <text class="port-label" x="767" y="115" text-anchor="start">trig</text>
+    <text class="bus-label" x="825" y="134" text-anchor="middle">position capture</text>
+    <circle class="port port-bit" cx="760" cy="110" r="4.5"/>
+    <circle class="led" cx="876" cy="88" r="3.5"/>
+  </g>
+
+  <!-- animated pulses -->
+  <circle class="pulse pulse-pos" cx="0" cy="110" r="4"/>
+  <circle class="pulse-d pulse-bit" cx="0" cy="110" r="4"/>
+
+</svg>

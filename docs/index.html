@@ -487,52 +487,7 @@ img,svg{ display:block; max-width:100%; }
           <span>live wiring</span>
           <span class="chain__dot"><i></i>armed</span>
         </div>
-        <svg viewBox="0 0 940 220" role="img">
-          <!-- bus labels over each connecting wire -->
-          <text class="bus-label" x="277" y="68" text-anchor="middle">pos_bus</text>
-          <text class="bus-label" x="642" y="68" text-anchor="middle">bit_bus</text>
-
-          <!-- WIRE 1  INENC.val -> PCOMP.inp : a position, drawn as an analog (sine) trace -->
-          <path class="trace-analog" d="M160,110 C190,86 220,134 250,110 C280,86 310,134 340,110 C362,96 382,124 395,110"/>
-          <!-- WIRE 2  PCOMP.out -> PCAP.trig : a pulse train, drawn as a digital (square) trace -->
-          <path class="trace-digital" d="M525,110 H560 V88 H600 V132 H640 V88 H680 V132 H720 V110 H760"/>
-          <!-- PCAP capture output -->
-          <path class="wire" d="M890,110 H922"/>
-          <path class="wire" d="M916,104 L924,110 L916,116"/>
-          <text class="bus-label" x="905" y="98" text-anchor="middle">data</text>
-
-          <!-- BLOCK: INENC (incremental encoder input) -->
-          <g>
-            <rect class="node-box" x="30" y="74" width="130" height="72" rx="9"/>
-            <text class="node-label" x="95" y="100" text-anchor="middle">INENC</text>
-            <text class="port-label" x="146" y="115" text-anchor="end">val</text>
-            <text class="bus-label" x="95" y="134" text-anchor="middle">encoder in</text>
-            <circle class="port port-pos" cx="160" cy="110" r="4.5"/>
-          </g>
-          <!-- BLOCK: PCOMP (position compare) -->
-          <g>
-            <rect class="node-box" x="395" y="74" width="130" height="72" rx="9"/>
-            <text class="node-label" x="460" y="100" text-anchor="middle">PCOMP</text>
-            <text class="port-label" x="402" y="115" text-anchor="start">inp</text>
-            <text class="port-label" x="518" y="115" text-anchor="end">out</text>
-            <text class="bus-label" x="460" y="134" text-anchor="middle">position compare</text>
-            <circle class="port port-pos" cx="395" cy="110" r="4.5"/>
-            <circle class="port port-bit" cx="525" cy="110" r="4.5"/>
-          </g>
-          <!-- BLOCK: PCAP (position capture) -->
-          <g>
-            <rect class="node-box" x="760" y="74" width="130" height="72" rx="9"/>
-            <text class="node-label" x="825" y="100" text-anchor="middle">PCAP</text>
-            <text class="port-label" x="767" y="115" text-anchor="start">trig</text>
-            <text class="bus-label" x="825" y="134" text-anchor="middle">position capture</text>
-            <circle class="port port-bit" cx="760" cy="110" r="4.5"/>
-            <circle class="led" cx="876" cy="88" r="3.5"/>
-          </g>
-
-          <!-- travelling pulses: position flows in, trigger pulse flows out -->
-          <circle class="pulse pulse-pos" cx="0" cy="110" r="4"/>
-          <circle class="pulse-d pulse-bit" cx="0" cy="110" r="4"/>
-        </svg>
+       <img src="chain.svg" />
       </div>
     </div>
   </div>
