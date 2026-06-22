@@ -2,8 +2,6 @@
 
   <style>
     /* colors (resolved from CSS variables) */
-    .trace-analog { fill:none; stroke:#FFB000; stroke-width:2; opacity:.92; }
-    .trace-digital { fill:none; stroke:#5FD6CC; stroke-width:2; opacity:.92; }
     .wire { fill:none; stroke:#2F3D49; stroke-width:1.5; }
     .node-box { fill:#161E26; stroke:#2F3D49; stroke-width:1.5; }
 
@@ -15,26 +13,43 @@
     .port-pos { fill:#FFB000; }
     .port-bit { fill:#5FD6CC; }
 
-    .pulse { fill:#FFB000; }
-    .pulse-d { fill:#5FD6CC; }
+    /* scope-trace persistence: dim base + bright wipe sharing the same path */
+    .trace-base { fill:none; stroke-width:2; }
+    .trace-base-analog { stroke:#FFB000; opacity:.16; }
+    .trace-base-digital { stroke:#5FD6CC; opacity:.16; }
 
-    /* animations */
-    @keyframes run-pos {
-      0% { transform:translateX(160px); opacity:0; }
-      8% { opacity:1; }
-      42% { transform:translateX(395px); opacity:1; }
-      50%,100% { transform:translateX(395px); opacity:0; }
+    .trace-wipe { fill:none; stroke-width:2; opacity:.95; }
+    .trace-wipe-analog { stroke:#FFB000; }
+    .trace-wipe-digital { stroke:#5FD6CC; }
+
+    /* analog wipe: path length ~249. Draw on left-to-right, hold, erase left-to-right, hold, repeat over 4s */
+    @keyframes wipe-pos {
+      0%        { stroke-dashoffset: 249; }
+      8%        { stroke-dashoffset: 249; }
+      34%       { stroke-dashoffset: 0; }
+      42%       { stroke-dashoffset: 0; }
+      46%       { stroke-dashoffset: -249; }
+      100%      { stroke-dashoffset: -249; }
     }
 
-    @keyframes run-bit {
-      0%,46% { transform:translateX(525px); opacity:0; }
-      54% { opacity:1; }
-      88% { transform:translateX(760px); opacity:1; }
-      96%,100% { transform:translateX(760px); opacity:0; }
+    /* digital wipe: path length ~411. Active window 46%-96% of the same 4s loop */
+    @keyframes wipe-bit {
+      0%        { stroke-dashoffset: 411; }
+      46%       { stroke-dashoffset: 411; }
+      80%       { stroke-dashoffset: 0; }
+      88%       { stroke-dashoffset: 0; }
+      92%       { stroke-dashoffset: -411; }
+      100%      { stroke-dashoffset: -411; }
     }
 
-    .pulse-pos { animation:run-pos 4s linear infinite; }
-    .pulse-bit { animation:run-bit 4s linear infinite; }
+    .wipe-pos {
+      stroke-dasharray: 249 249;
+      animation: wipe-pos 4s linear infinite;
+    }
+    .wipe-bit {
+      stroke-dasharray: 411 411;
+      animation: wipe-bit 4s linear infinite;
+    }
 
     @keyframes led-blink {
       0%,100% { opacity:.3; }
@@ -42,23 +57,39 @@
     }
 
     .led { fill:#FFB000; animation:led-blink 1.6s ease-in-out infinite; }
+
+    /* data-arrow flash: fires once the digital trace finishes drawing (~88% of loop) */
+    @keyframes data-flash {
+      0%   { opacity:.55; stroke:#2F3D49; filter:none; }
+      88%  { opacity:.55; stroke:#2F3D49; filter:none; }
+      90%  { opacity:1; stroke:#3DFF6E; filter:drop-shadow(0 0 4px #3DFF6E); }
+      94%  { opacity:1; stroke:#3DFF6E; filter:drop-shadow(0 0 4px #3DFF6E); }
+      99%  { opacity:.55; stroke:#2F3D49; filter:none; }
+      100% { opacity:.55; stroke:#2F3D49; filter:none; }
+    }
+
+    .data-arrow { animation:data-flash 4s linear infinite; }
   </style>
 
   <!-- labels -->
   <text class="bus-label" x="277" y="68" text-anchor="middle">pos_bus</text>
   <text class="bus-label" x="642" y="68" text-anchor="middle">bit_bus</text>
 
-  <!-- analog path -->
-  <path class="trace-analog"
+  <!-- analog path: dim persistence base + bright sweeping wipe -->
+  <path class="trace-base trace-base-analog"
+        d="M160,110 C190,86 220,134 250,110 C280,86 310,134 340,110 C362,96 382,124 395,110"/>
+  <path class="trace-wipe trace-wipe-analog wipe-pos"
         d="M160,110 C190,86 220,134 250,110 C280,86 310,134 340,110 C362,96 382,124 395,110"/>
 
-  <!-- digital path -->
-  <path class="trace-digital"
+  <!-- digital path: dim persistence base + bright sweeping wipe -->
+  <path class="trace-base trace-base-digital"
+        d="M525,110 H560 V88 H600 V132 H640 V88 H680 V132 H720 V110 H760"/>
+  <path class="trace-wipe trace-wipe-digital wipe-bit"
         d="M525,110 H560 V88 H600 V132 H640 V88 H680 V132 H720 V110 H760"/>
 
   <!-- output -->
-  <path class="wire" d="M890,110 H922"/>
-  <path class="wire" d="M916,104 L924,110 L916,116"/>
+  <path class="wire data-arrow" d="M890,110 H922"/>
+  <path class="wire data-arrow" d="M916,104 L924,110 L916,116"/>
   <text class="bus-label" x="905" y="98" text-anchor="middle">data</text>
 
   <!-- INENC -->
@@ -90,9 +121,5 @@
     <circle class="port port-bit" cx="760" cy="110" r="4.5"/>
     <circle class="led" cx="876" cy="88" r="3.5"/>
   </g>
-
-  <!-- animated pulses -->
-  <circle class="pulse pulse-pos" cx="0" cy="110" r="4"/>
-  <circle class="pulse-d pulse-bit" cx="0" cy="110" r="4"/>
 
 </svg>
