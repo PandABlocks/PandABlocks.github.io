@@ -271,7 +271,6 @@ img,svg{ display:block; max-width:100%; }
    ================================================================= */
 .section{ padding-block:clamp(64px, 9vw, 116px); position:relative; }
 .section--alt{ background:var(--void-2); border-block:1px solid var(--line); }
-.section__head{ max-width:62ch; }
 .section__head h2{
   font-family:var(--font-display);
   font-weight:600;
@@ -313,7 +312,6 @@ img,svg{ display:block; max-width:100%; }
   transition:border-color .18s ease, transform .18s ease, background .18s ease;
 }
 .repo:hover{ border-color:var(--signal); transform:translateY(-3px); background:var(--panel-2); }
-.repo--wide{ grid-column:1 / -1; }
 .repo__top{ display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:14px; }
 .repo__layer{
   font-family:var(--font-mono); font-size:.66rem; letter-spacing:.16em; text-transform:uppercase;
@@ -470,7 +468,7 @@ img,svg{ display:block; max-width:100%; }
     <p class="hero__sub">
       PandABlocks is the open-source firmware and software stack behind <b>PandABox</b>.
       Wire FPGA functional blocks together at runtime to build triggering and
-      position-capture logic — <b>no rebuild, no recompile.</b>
+      position-capture logic.
     </p>
     <div class="hero__cta">
       <!-- EDIT: primary docs link (meta-panda — the firmware image + docs) -->
@@ -500,7 +498,7 @@ img,svg{ display:block; max-width:100%; }
       <div class="idea__copy">
         <span class="eyebrow">The idea</span>
         <h2 class="idea__title">
-          One firmware. Logic you wire like a patchbay.
+          Firmware provides the blocks. You provide the wiring.
         </h2>
         <p class="lede">
           A PandABlocks build ships dozens of FPGA functional blocks — clocks, counters,
@@ -513,23 +511,19 @@ img,svg{ display:block; max-width:100%; }
           write it. <b>The same firmware becomes a pulse generator, a position compare,
           a multi-axis trigger fan-out</b> — whatever the experiment needs that day.
         </p>
-        <p>
-          Because nothing is hard-wired, one image covers many applications, and a new
-          FMC card just adds blocks — no rebuild of the server, client, or control layer.
-        </p>
       </div>
       <div class="facts" role="list">
         <div class="fact" role="listitem">
           <span class="fact__k">∿→⊓</span>
-          <span class="fact__v"><b>Two buses</b>pos_bus carries position values, bit_bus carries digital signals. Every block taps both.</span>
+          <span class="fact__v"><b>Two buses</b>pos_bus carries position values, bit_bus carries digital signals. Any block can read or write to any other via these busses.</span>
         </div>
         <div class="fact" role="listitem">
-          <span class="fact__k">0 s</span>
-          <span class="fact__v"><b>Rewire at runtime</b>Change the wiring over TCP and it takes effect immediately. No FPGA rebuild.</span>
+          <span class="fact__k">✎_</span>
+          <span class="fact__v"><b>Rewire at runtime</b>Change the wiring over TCP and it takes effect immediately. No FPGA rebuild required.</span>
         </div>
         <div class="fact" role="listitem">
-          <span class="fact__k">ns</span>
-          <span class="fact__v"><b>Hardware timing</b>Triggering and capture run in FPGA fabric — deterministic, jitter-free.</span>
+          <span class="fact__k">8ns</span>
+          <span class="fact__v"><b>Hardware timing</b>Values travel from block to block in 1 FPGA clock tick. Always deterministic.</span>
         </div>
       </div>
     </div>
@@ -541,8 +535,8 @@ img,svg{ display:block; max-width:100%; }
   <div class="wrap">
     <div class="section__head">
       <span class="eyebrow">Ecosystem</span>
-      <h2>The image on the box — and the tools that talk to it.</h2>
-      <p>meta-panda builds the firmware image that boots on the PandA, assembled from the FPGA and server repositories. The Python client and the EPICS/Tango IOC are standalone — bring whichever one fits your setup.</p>
+      <h2>The firmware on the box — and the tools that talk to it.</h2>
+      <p>meta-panda builds the firmware image that boots on the PandA, assembled from the FPGA and server repositories. The Python client and the EPICS/Tango IOC are standalone — use whichever one fits your needs.</p>
     </div>
 
     <!-- ===== GROUP: the firmware image (meta-panda, built from FPGA + server) ===== -->
@@ -550,62 +544,62 @@ img,svg{ display:block; max-width:100%; }
       <div class="group__label"><span class="group__dot"></span>Runs on the box · <b>firmware image</b></div>
 
       <!-- meta-panda — the deliverable image + docs -->
-      <a class="repo repo--wide" href="https://github.com/PandABlocks/meta-panda" target="_blank" rel="noopener">
+      <a class="repo" href="https://PandABlocks.github.io/meta-panda" target="_blank" rel="noopener">
         <div class="repo__top">
           <span class="repo__layer">Start here · Image &amp; docs</span>
           <svg class="repo__arrow" width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
         </div>
         <h3>meta-panda</h3>
         <span class="repo__role">Firmware image &amp; documentation</span>
-        <p>The deliverable. Builds the image that boots on the PandA — bundling the two repositories below — and carries the docs and position-capture tutorials. Start here.</p>
+        <p>The deliverable. Builds the firmware image that boots on the PandA — bundling the two repositories below — and carries the docs and position-capture tutorials. Start here.</p>
       </a>
 
       <div class="group__from">assembled from</div>
 
       <div class="group__parts">
         <!-- FPGA -->
-        <a class="repo" href="https://github.com/PandABlocks/PandABlocks-FPGA" target="_blank" rel="noopener">
+        <a class="repo" href="https://PandABlocks.github.io/PandABlocks-FPGA" target="_blank" rel="noopener">
           <div class="repo__top">
             <span class="repo__layer">FPGA</span>
             <svg class="repo__arrow" width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
           </div>
           <h3>PandABlocks-FPGA</h3>
           <span class="repo__role">Firmware &amp; functional blocks</span>
-          <p>The VHDL functional blocks, their simulations and test sequences — compiled into the image.</p>
+          <p>The VHDL functional blocks, their simulations and test sequences — compiled into the firmware.</p>
         </a>
         <!-- SERVER -->
-        <a class="repo" href="https://github.com/PandABlocks/PandABlocks-server" target="_blank" rel="noopener">
+        <a class="repo" href="https://PandABlocks.github.io/PandABlocks-server" target="_blank" rel="noopener">
           <div class="repo__top">
             <span class="repo__layer">Server</span>
             <svg class="repo__arrow" width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
           </div>
           <h3>PandABlocks-server</h3>
           <span class="repo__role">TCP control interface</span>
-          <p>The ARM-side server that exposes block wiring and data capture over TCP. Runs inside the image.</p>
+          <p>The ARM-side server that exposes block wiring and data capture over TCP. Runs inside the firmware.</p>
         </a>
       </div>
     </div>
 
     <!-- ===== STANDALONE TOOLS — each independent, kept apart ===== -->
     <!-- CLIENT -->
-    <a class="repo repo--row" href="https://github.com/PandABlocks/PandABlocks-client" target="_blank" rel="noopener">
+    <a class="repo repo--row" href="https://PandABlocks.github.io/PandABlocks-client" target="_blank" rel="noopener">
       <div class="row__main">
         <span class="chip">Standalone</span>
         <h3>PandABlocks-client</h3>
         <span class="repo__role">Python client library</span>
       </div>
-      <p class="row__desc">Talk to any PandA over TCP from your own Python — set fields, change wiring, and stream position-capture data into your scripts.</p>
+      <p class="row__desc">Talk to any PandA over TCP from Python — set fields, change wiring, and stream position-capture data into your scripts.</p>
       <svg class="repo__arrow" width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
     </a>
 
     <!-- INTEGRATION (separate from the client) -->
-    <a class="repo repo--row" href="https://github.com/PandABlocks/fastcs-PandABlocks" target="_blank" rel="noopener">
+    <a class="repo repo--row" href="https://PandABlocks.github.io/fastcs-PandABlocks" target="_blank" rel="noopener">
       <div class="row__main">
         <span class="chip">Standalone</span>
         <h3>fastcs-PandABlocks</h3>
         <span class="repo__role">EPICS &amp; Tango interface</span>
       </div>
-      <p class="row__desc">A FastCS soft IOC that drops a PandA straight into an EPICS or Tango control system — every block exposed as control points.</p>
+      <p class="row__desc">A FastCS Controller that integrates PandA into an EPICS or Tango control system — introspected so every block and every field is exposed.</p>
       <svg class="repo__arrow" width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11L11 5M11 5H5.5M11 5v5.5"/></svg>
     </a>
 
@@ -624,30 +618,30 @@ img,svg{ display:block; max-width:100%; }
   <div class="wrap">
     <div class="section__head">
       <span class="eyebrow">Hardware</span>
-      <h2>Built for PandABox. Portable beyond it.</h2>
+      <h2>One stack. Many targets.</h2>
       <p>The same firmware and software stack runs across a growing family of Zynq-based platforms.</p>
     </div>
 
     <!-- EDIT hardware cards below -->
     <div class="hw">
-      <div class="card">
-        <span class="card__tag tag--live">Shipping now</span>
+      <a class="repo card" href="https://quantumdetectors.com/products/pandabox-beamline-timing-control" target="_blank" rel="noopener">
+        <span class="card__tag tag--live">Original</span>
         <h3>PandABox</h3>
         <p>The original platform from Diamond Light Source and Synchrotron Soleil. Zynq-7000 SoC, FMC expansion, encoder I/O and SFP links for multi-box sync.</p>
         <span class="spec">Zynq-7000 · FMC · SFP</span>
-      </div>
+      </a>
       <div class="card">
         <span class="card__tag tag--next">Upcoming</span>
         <h3>PandABox II</h3>
         <p>The next-generation platform — more I/O and more FPGA headroom, running the same runtime-rewirable PandABlocks firmware you already know.</p>
-        <span class="spec">Next generation</span>
+        <span class="spec">Zynq-Ultrascale+ · FMC · SFP</span>
       </div>
-      <div class="card">
-        <span class="card__tag tag--port">Portable</span>
+      <a class="repo card" href="https://www.faradaymotioncontrols.co.uk/motion-products/fpga-power-brick-lv-ims" target="_blank" rel="noopener">
+        <span class="card__tag tag--port">Hybrid</span>
         <h3>Faraday Motion PowerBrick</h3>
-        <p>PandABlocks also targets the Faraday Motion PowerBrick FPGA, bringing the same block-wiring model to a motion-control form factor.</p>
-        <span class="spec">PowerBrick FPGA</span>
-      </div>
+        <p>PandABlocks also targets the Faraday Motion FPGA PowerBrick LV IMS, bringing the same block-wiring model to a motion-control form factor.</p>
+        <span class="spec">PowerBrick · Zynq-Ultrascale+ · SFP</span>
+      </a>
     </div>
   </div>
 </section>
